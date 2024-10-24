@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-10-2024 a las 10:12:11
+-- Tiempo de generación: 24-10-2024 a las 14:19:07
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `dwes-p2`
 --
+CREATE DATABASE IF NOT EXISTS `dwes-p2` DEFAULT CHARACTER SET utf16 COLLATE utf16_general_ci;
+USE `dwes-p2`;
 
 -- --------------------------------------------------------
 
