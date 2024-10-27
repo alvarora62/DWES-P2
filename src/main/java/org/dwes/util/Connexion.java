@@ -21,8 +21,8 @@ public class Connexion {
         try (FileInputStream fis = new FileInputStream("src/main/resources/db.properties")) {
             prop.load(fis);
             mysqlDataSource.setUrl(prop.getProperty("url"));
-            mysqlDataSource.setUser(prop.getProperty("usuario"));
-            mysqlDataSource.setPassword(prop.getProperty("password"));
+            mysqlDataSource.setUser(prop.getProperty("user"));
+            mysqlDataSource.setPassword(prop.getProperty("passwd"));
         } catch (IOException e) {
             System.err.println("Error loading properties: " + e.getMessage());
             e.printStackTrace();
