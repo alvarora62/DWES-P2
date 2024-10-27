@@ -16,8 +16,8 @@ import java.util.Properties;
 
 public class Connexion {
 
-    private static final MysqlDataSource mysqlDataSource = new MysqlDataSource();
-    private static final Properties prop = new Properties();
+    private static final MysqlDataSource MYSQL_DATA_SOURCE = new MysqlDataSource();
+    private static final Properties PROPERTIES = new Properties();
 
     static {
         loadProperties();
@@ -33,10 +33,10 @@ public class Connexion {
 
     private static void loadProperties() {
         try (FileInputStream fis = new FileInputStream("src/main/resources/db.properties")) {
-            prop.load(fis);
-            mysqlDataSource.setUrl(prop.getProperty("url"));
-            mysqlDataSource.setUser(prop.getProperty("user"));
-            mysqlDataSource.setPassword(prop.getProperty("passwd"));
+            PROPERTIES.load(fis);
+            MYSQL_DATA_SOURCE.setUrl(PROPERTIES.getProperty("url"));
+            MYSQL_DATA_SOURCE.setUser(PROPERTIES.getProperty("user"));
+            MYSQL_DATA_SOURCE.setPassword(PROPERTIES.getProperty("passwd"));
         } catch (IOException e) {
             System.err.println("Error loading properties: " + e.getMessage());
             e.printStackTrace();
@@ -54,7 +54,7 @@ public class Connexion {
      */
     public static Connection getConexion() {
         try {
-            return mysqlDataSource.getConnection();
+            return MYSQL_DATA_SOURCE.getConnection();
         } catch (SQLException e) {
             System.err.println("SQLException occurred: " + e.getMessage());
             e.printStackTrace();
