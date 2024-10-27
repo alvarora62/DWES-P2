@@ -8,6 +8,12 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
 
+/**
+ * Clase para gestionar la conexión a una base de datos MySQL utilizando un
+ * datasource. Esta clase carga las propiedades de conexión desde un archivo
+ * .properties y proporciona un método para obtener una conexión.
+ */
+
 public class Connexion {
 
     private static final MysqlDataSource mysqlDataSource = new MysqlDataSource();
@@ -16,6 +22,14 @@ public class Connexion {
     static {
         loadProperties();
     }
+
+    /**
+     * Carga las propiedades de conexión desde el archivo 'db.properties'.
+     * Establece la URL, el 'user' y la 'passwd' en el datasource.
+     *
+     * Si ocurre un error al cargar las propiedades, se imprime un mensaje
+     * de error en la consola.
+     */
 
     private static void loadProperties() {
         try (FileInputStream fis = new FileInputStream("src/main/resources/db.properties")) {
@@ -26,9 +40,18 @@ public class Connexion {
         } catch (IOException e) {
             System.err.println("Error loading properties: " + e.getMessage());
             e.printStackTrace();
+        } catch (Exception e){
+            System.err.println("Unexpected error ocurred: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
+    /**
+     * Obtiene una conexión a la base de datos.
+     *
+     * @return un Objeto Connection si no falla;
+     *         si falla, devuelve null y se imprime un mensaje de error.
+     */
     public static Connection getConexion() {
         try {
             return mysqlDataSource.getConnection();
