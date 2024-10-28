@@ -14,7 +14,7 @@ public class PersonaMenu {
     public void menuPersona(){
         do {
             System.out.println("**Sistema Gestor del Viviero** (Gestión de Personal)");
-            System.out.println("1 - Alta de un empleado");
+            System.out.println("1 - Alta de un empleado (NO IMPLEMENTADO)");
             System.out.println("9 - Atrás");
 
             try{

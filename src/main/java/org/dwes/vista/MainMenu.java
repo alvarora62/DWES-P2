@@ -14,8 +14,8 @@ public class MainMenu {
     public void menuPrincipal(){
         do {
             System.out.println("**Sistema Gestor del Viviero**");
-            System.out.println("1 - Ver plantas");
-            System.out.println("2 - Iniciar sesión");
+            System.out.println("1 - Ver plantas (NO IMPLEMENTADO)");
+            System.out.println("2 - Iniciar sesión (NO IMPLEMENTADO)");
             System.out.println("9 - Salir");
 
             try{
