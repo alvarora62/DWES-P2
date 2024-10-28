@@ -3,20 +3,19 @@ package org.dwes.vista;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class MainMenu {
+public class PersonaMenu {
 
     boolean on = true;
     Scanner sc = new Scanner(System.in);
 
-    public MainMenu() {
+    public PersonaMenu() {
     }
 
-    public void menuPrincipal(){
+    public void menuPersona(){
         do {
-            System.out.println("**Sistema Gestor del Viviero**");
-            System.out.println("1 - Ver plantas (NO IMPLEMENTADO)");
-            System.out.println("2 - Iniciar sesión (NO IMPLEMENTADO)");
-            System.out.println("9 - Salir");
+            System.out.println("**Sistema Gestor del Viviero** (Gestión de Personal)");
+            System.out.println("1 - Alta de un empleado (NO IMPLEMENTADO)");
+            System.out.println("9 - Atrás");
 
             try{
                 int answer = sc.nextInt();
@@ -24,15 +23,10 @@ public class MainMenu {
                 switch (answer) {
                     case 1:
                         spacer();
-                        // ver plantas
-                        break;
-                    case 2:
-                        spacer();
-                        // inicio sesion
+                        // Alta Empleados
                         break;
                     case 9:
                         spacer();
-                        System.out.println("Apagando aplicación.");
                         on = false;
                         break;
                     default:
