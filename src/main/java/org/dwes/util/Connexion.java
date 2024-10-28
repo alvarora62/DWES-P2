@@ -9,10 +9,9 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 /**
- * Clase Singleton para gestionar la conexión a una base de datos MySQL.
- * Esta clase carga las propiedades de conexión desde un archivo .properties
- * y proporciona un método para obtener una conexión. Actúa como una fachada
- * para simplificar el acceso a la base de datos.
+ * Clase para gestionar la conexión a una base de datos MySQL utilizando un
+ * datasource. Esta clase carga las propiedades de conexión desde un archivo
+ * .properties y proporciona un método para obtener una conexión.
  */
 public class Connexion {
 
