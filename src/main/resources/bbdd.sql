@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-10-2024 a las 10:12:11
+-- Tiempo de generación: 28-10-2024 a las 09:40:17
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `dwes-p2`
 --
+CREATE DATABASE IF NOT EXISTS `dwes-p2` DEFAULT CHARACTER SET utf16 COLLATE utf16_general_ci;
+USE `dwes-p2`;
 
 -- --------------------------------------------------------
 
@@ -27,6 +29,7 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `credenciales`
 --
 
+DROP TABLE IF EXISTS `credenciales`;
 CREATE TABLE `credenciales` (
   `id` int(50) NOT NULL,
   `usuario` varchar(50) NOT NULL,
@@ -40,6 +43,7 @@ CREATE TABLE `credenciales` (
 -- Estructura de tabla para la tabla `ejemplar`
 --
 
+DROP TABLE IF EXISTS `ejemplar`;
 CREATE TABLE `ejemplar` (
   `id` int(50) NOT NULL,
   `nombre` varchar(50) NOT NULL,
@@ -52,6 +56,7 @@ CREATE TABLE `ejemplar` (
 -- Estructura de tabla para la tabla `mensaje`
 --
 
+DROP TABLE IF EXISTS `mensaje`;
 CREATE TABLE `mensaje` (
   `id` int(11) NOT NULL,
   `fechahora` datetime NOT NULL,
@@ -66,6 +71,7 @@ CREATE TABLE `mensaje` (
 -- Estructura de tabla para la tabla `persona`
 --
 
+DROP TABLE IF EXISTS `persona`;
 CREATE TABLE `persona` (
   `id` int(50) NOT NULL,
   `nombre` varchar(50) NOT NULL,
@@ -78,6 +84,7 @@ CREATE TABLE `persona` (
 -- Estructura de tabla para la tabla `planta`
 --
 
+DROP TABLE IF EXISTS `planta`;
 CREATE TABLE `planta` (
   `codigo` varchar(50) NOT NULL,
   `nombreComun` varchar(50) NOT NULL,
