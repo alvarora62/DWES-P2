@@ -1,5 +1,8 @@
 package org.dwes.vista;
 
+import org.dwes.controlador.ServicioPlantaImpl;
+import org.dwes.dao.PlantaDAOImpl;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -8,10 +11,18 @@ public class PlantasMenu {
     boolean on = true;
     Scanner sc = new Scanner(System.in);
 
+    private ServicioPlantaImpl servicioPlanta;
+    private PlantaDAOImpl plantaDAO;
+
     public PlantasMenu() {
+        servicioPlanta = ServicioPlantaImpl.getServicioPlanta();
     }
 
-    public void menulantas(){
+    public void vistaInvitado(){
+        servicioPlanta.listarPlantas();
+    }
+
+    public void menuPlantas(){
         do {
             System.out.println("**Sistema Gestor del Viviero** (Gestión de Personal)");
             System.out.println("1 - Registrar planta (NO IMPLEMENTADO)");
@@ -30,7 +41,7 @@ public class PlantasMenu {
                         break;
                     case 2:
                         spacer();
-                        // Listar plantas
+                        servicioPlanta.listarPlantas();
                         break;
                     case 3:
                         spacer();
