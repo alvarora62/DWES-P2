@@ -9,39 +9,46 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 /**
- * Clase para gestionar la conexión a una base de datos MySQL utilizando un
- * datasource. Esta clase carga las propiedades de conexión desde un archivo
- * .properties y proporciona un método para obtener una conexión.
+ * Clase Singleton para gestionar la conexión a una base de datos MySQL.
+ * Esta clase carga las propiedades de conexión desde un archivo .properties
+ * y proporciona un método para obtener una conexión. Actúa como una fachada
+ * para simplificar el acceso a la base de datos.
  */
-
 public class Connexion {
 
-    private static final MysqlDataSource MYSQL_DATA_SOURCE = new MysqlDataSource();
-    private static final Properties PROPERTIES = new Properties();
+    private static Connexion connexion;
+    private final MysqlDataSource mysqlDataSource;
 
-    static {
+    private Connexion() {
+        mysqlDataSource = new MysqlDataSource();
         loadProperties();
+    }
+    
+    public static synchronized Connexion getConnexion() {
+        if (connexion == null) {
+            connexion = new Connexion();
+        }
+        return connexion;
     }
 
     /**
      * Carga las propiedades de conexión desde el archivo 'db.properties'.
      * Establece la URL, el 'user' y la 'passwd' en el datasource.
-     *
      * Si ocurre un error al cargar las propiedades, se imprime un mensaje
      * de error en la consola.
      */
-
-    private static void loadProperties() {
+    private void loadProperties() {
+        Properties properties = new Properties();
         try (FileInputStream fis = new FileInputStream("src/main/resources/db.properties")) {
-            PROPERTIES.load(fis);
-            MYSQL_DATA_SOURCE.setUrl(PROPERTIES.getProperty("url"));
-            MYSQL_DATA_SOURCE.setUser(PROPERTIES.getProperty("user"));
-            MYSQL_DATA_SOURCE.setPassword(PROPERTIES.getProperty("passwd"));
+            properties.load(fis);
+            mysqlDataSource.setUrl(properties.getProperty("url"));
+            mysqlDataSource.setUser(properties.getProperty("user"));
+            mysqlDataSource.setPassword(properties.getProperty("passwd"));
         } catch (IOException e) {
             System.err.println("Error loading properties: " + e.getMessage());
             e.printStackTrace();
-        } catch (Exception e){
-            System.err.println("Unexpected error ocurred: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Unexpected error occurred: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -49,12 +56,12 @@ public class Connexion {
     /**
      * Obtiene una conexión a la base de datos.
      *
-     * @return un Objeto Connection si no falla;
+     * @return un objeto Connection si no falla;
      *         si falla, devuelve null y se imprime un mensaje de error.
      */
-    public static Connection getConexion() {
+    public Connection getConexion() {
         try {
-            return MYSQL_DATA_SOURCE.getConnection();
+            return mysqlDataSource.getConnection();
         } catch (SQLException e) {
             System.err.println("SQLException occurred: " + e.getMessage());
             e.printStackTrace();
