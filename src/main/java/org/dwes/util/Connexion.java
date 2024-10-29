@@ -44,10 +44,10 @@ public class Connexion {
             mysqlDataSource.setUser(properties.getProperty("user"));
             mysqlDataSource.setPassword(properties.getProperty("passwd"));
         } catch (IOException e) {
-            System.err.println("Error loading properties: " + e.getMessage());
+            System.err.println("Error cargando propiedades --> " + e.getMessage());
             e.printStackTrace();
         } catch (Exception e) {
-            System.err.println("Unexpected error occurred: " + e.getMessage());
+            System.err.println("Ha ocurrido un error desconocido --> " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -62,7 +62,7 @@ public class Connexion {
         try {
             return mysqlDataSource.getConnection();
         } catch (SQLException e) {
-            System.err.println("SQLException occurred: " + e.getMessage());
+            System.err.println("SQLException --> " + e.getMessage());
             e.printStackTrace();
             return null;
         }
