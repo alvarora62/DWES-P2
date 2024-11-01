@@ -43,19 +43,6 @@ public class Persona {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Persona persona = (Persona) o;
-        return Objects.equals(id, persona.id) && Objects.equals(nombre, persona.nombre) && Objects.equals(email, persona.email);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, nombre, email);
-    }
-
-    @Override
     public String toString() {
         return "Persona{" +
                 "email='" + email + '\'' +

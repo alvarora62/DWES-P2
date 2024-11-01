@@ -23,7 +23,7 @@ public class Connexion {
         loadProperties();
     }
     
-    public static synchronized Connexion getConnexion() {
+    public static Connexion getConnexion() {
         if (connexion == null) {
             connexion = new Connexion();
         }

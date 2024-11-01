@@ -63,19 +63,6 @@ public class Mensaje {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Mensaje mensaje1 = (Mensaje) o;
-        return Objects.equals(id, mensaje1.id) && Objects.equals(fechaHora, mensaje1.fechaHora) && Objects.equals(mensaje, mensaje1.mensaje) && Objects.equals(persona, mensaje1.persona) && Objects.equals(ejemplar, mensaje1.ejemplar);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, fechaHora, mensaje, persona, ejemplar);
-    }
-
-    @Override
     public String toString() {
         return "Mensaje{" +
                 "id=" + id +

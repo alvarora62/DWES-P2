@@ -30,7 +30,7 @@ public class PlantaDAOImpl implements PlantaDAO {
     @Override
     public List<Planta> findAll() {
         List<Planta> plantas = new ArrayList<>();
-        String sql = "SELECT * FROM plantas";
+        String sql = "SELECT * FROM planta";
 
         try {
             preparedStatement = connection.prepareStatement(sql);
@@ -61,7 +61,7 @@ public class PlantaDAOImpl implements PlantaDAO {
     @Override
     public Planta findById(String id) {
         Planta planta = null;
-        String sql = "SELECT * FROM plantas WHERE id = ?";
+        String sql = "SELECT * FROM planta WHERE id = ?";
 
         try {
             preparedStatement = connection.prepareStatement(sql);
@@ -91,7 +91,7 @@ public class PlantaDAOImpl implements PlantaDAO {
      */
     @Override
     public boolean save(Planta planta) {
-        String sql = "INSERT INTO plantas (codigo, nombre_comun, nombre_cientifico) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO planta (codigo, nombre_comun, nombre_cientifico) VALUES (?, ?, ?)";
 
         try {
             preparedStatement = connection.prepareStatement(sql);
@@ -112,16 +112,16 @@ public class PlantaDAOImpl implements PlantaDAO {
     /**
      * Elimina una planta de la base de datos
      *
-     * @param planta la planta a eliminar
+     * @param codigo la planta a eliminar
      * @return devuelve true si la operacion se hace y false si algo falla
      */
     @Override
-    public boolean delete(Planta planta) {
-        String sql = "DELETE FROM plantas WHERE codigo = ?";
+    public boolean delete(String codigo) {
+        String sql = "DELETE FROM planta WHERE codigo = ?";
 
         try {
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, planta.getCodigo());
+            preparedStatement.setString(1, codigo);
             preparedStatement.executeUpdate();
 
             return true;
@@ -141,7 +141,7 @@ public class PlantaDAOImpl implements PlantaDAO {
      */
     @Override
     public boolean update(Planta planta) {
-        String sql = "UPDATE plantas SET nombre_comun = ?, nombre_cientifico = ? WHERE codigo = ?";
+        String sql = "UPDATE planta SET nombre_comun = ?, nombre_cientifico = ? WHERE codigo = ?";
 
         try {
             preparedStatement = connection.prepareStatement(sql);
