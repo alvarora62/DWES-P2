@@ -1,4 +1,4 @@
-package org.dwes.dao;
+package org.dwes.repositorio;
 
 import org.dwes.modelo.Planta;
 

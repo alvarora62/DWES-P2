@@ -1,4 +1,4 @@
-package org.dwes.controlador;
+package org.dwes.servicio;
 
 import org.dwes.modelo.Planta;
 

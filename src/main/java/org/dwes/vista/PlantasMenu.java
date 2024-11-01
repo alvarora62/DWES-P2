@@ -1,7 +1,7 @@
 package org.dwes.vista;
 
-import org.dwes.controlador.ServicioPlantaImpl;
-import org.dwes.dao.PlantaDAOImpl;
+import org.dwes.servicio.ServicioPlantaImpl;
+import org.dwes.repositorio.PlantaDAOImpl;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
