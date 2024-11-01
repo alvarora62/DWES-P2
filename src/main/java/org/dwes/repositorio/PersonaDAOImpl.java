@@ -24,7 +24,7 @@ public class PersonaDAOImpl implements PersonaDAO{
     /**
      * Da un listado de todas las plantas de la base de datos
      *
-     * @return lista de objetos Planta
+     * @return lista de objetos Persona
      */
     @Override
     public List<Persona> findAll() {
@@ -44,7 +44,7 @@ public class PersonaDAOImpl implements PersonaDAO{
             }
 
         } catch (SQLException e) {
-            System.err.println("Error haciendo el listado de plantas --> " + e.getMessage());
+            System.err.println("Error haciendo el listado de personas --> " + e.getMessage());
             e.printStackTrace();
         }
 
@@ -71,11 +71,11 @@ public class PersonaDAOImpl implements PersonaDAO{
                 Long identificador = resultSet.getLong("id");
                 String nombre = resultSet.getString("nombre");
                 String email = resultSet.getString("email");
-                persona = new Persona(id, nombre, email);
+                persona = new Persona(identificador, nombre, email);
             }
 
         } catch (SQLException e) {
-            System.err.println("Error buscando personas por codigo --> " + e.getMessage());
+            System.err.println("Error buscando personas por id --> " + e.getMessage());
             e.printStackTrace();
         }
 
@@ -83,76 +83,26 @@ public class PersonaDAOImpl implements PersonaDAO{
     }
 
     /**
-     * Guarda una planta en la base de datos
+     * Guarda una Persona en la base de datos
      *
-     * @param planta la planta a guardar
+     * @param persona la planta a guardar
      * @return devuelve true si la operacion se hace y false si algo falla
      */
     @Override
-    public boolean save(Planta planta) {
-        String sql = "INSERT INTO plantas (codigo, nombre_comun, nombre_cientifico) VALUES (?, ?, ?)";
+    public boolean save(Persona persona) {
+        String sql = "INSERT INTO persona (id, nombre, email) VALUES (?, ?, ?)";
 
         try {
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, planta.getCodigo());
-            preparedStatement.setString(2, planta.getNombreComun());
-            preparedStatement.setString(3, planta.getNombreCientifico());
+            preparedStatement.setLong(1, persona.getId());
+            preparedStatement.setString(2, persona.getNombre());
+            preparedStatement.setString(3, persona.getEmail());
             preparedStatement.executeUpdate();
 
             return true;
 
         } catch (SQLException e) {
-            System.err.println("Error al guardar la planta --> " + e.getMessage());
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    /**
-     * Elimina una planta de la base de datos
-     *
-     * @param planta la planta a eliminar
-     * @return devuelve true si la operacion se hace y false si algo falla
-     */
-    @Override
-    public boolean delete(Planta planta) {
-        String sql = "DELETE FROM plantas WHERE codigo = ?";
-
-        try {
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, planta.getCodigo());
-            preparedStatement.executeUpdate();
-
-            return true;
-
-        } catch (SQLException e) {
-            System.err.println("Error eliminando la planta --> " + e.getMessage());
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    /**
-     * Actualiza una panta existente en la base de datos
-     *
-     * @param planta la planta para actualizar
-     * @return devuelve true si la operacion se hace y false si algo falla
-     */
-    @Override
-    public boolean update(Planta planta) {
-        String sql = "UPDATE plantas SET nombre_comun = ?, nombre_cientifico = ? WHERE codigo = ?";
-
-        try {
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, planta.getNombreComun());
-            preparedStatement.setString(2, planta.getNombreCientifico());
-            preparedStatement.setString(3, planta.getCodigo());
-            preparedStatement.executeUpdate();
-
-            return true;
-
-        } catch (SQLException e) {
-            System.err.println("Error actualizando la planta --> " + e.getMessage());
+            System.err.println("Error al guardar la persona --> " + e.getMessage());
             e.printStackTrace();
             return false;
         }

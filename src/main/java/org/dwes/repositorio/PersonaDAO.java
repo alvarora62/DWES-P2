@@ -9,6 +9,4 @@ public interface PersonaDAO {
     List<Persona> findAll();
     Persona findById(Long id);
     boolean save(Persona persona);
-    boolean delete(Persona persona);
-    boolean update(Persona persona);
 }
