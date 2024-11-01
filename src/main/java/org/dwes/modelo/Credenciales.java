@@ -52,19 +52,6 @@ public class Credenciales {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Credenciales that = (Credenciales) o;
-        return Objects.equals(id, that.id) && Objects.equals(usuario, that.usuario) && Objects.equals(password, that.password) && Objects.equals(fk_persona, that.fk_persona);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, usuario, password, fk_persona);
-    }
-
-    @Override
     public String toString() {
         return "Credenciales{" +
                 "id=" + id +

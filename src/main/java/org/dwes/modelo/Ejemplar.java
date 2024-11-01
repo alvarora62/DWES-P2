@@ -46,23 +46,6 @@ public class Ejemplar {
     }
 
     @Override
-    public String toString() {
-        return "Ejemplar{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", planta=" + planta +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Ejemplar ejemplar = (Ejemplar) o;
-        return Objects.equals(id, ejemplar.id) && Objects.equals(nombre, ejemplar.nombre) && Objects.equals(planta, ejemplar.planta);
-    }
-
-    @Override
     public int hashCode() {
         return Objects.hash(id, nombre, planta);
     }

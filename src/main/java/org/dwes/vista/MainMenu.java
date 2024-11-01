@@ -5,10 +5,13 @@ import java.util.Scanner;
 
 public class MainMenu {
 
+    private final PlantasMenu plantasMenu;
+
     boolean on = true;
     Scanner sc = new Scanner(System.in);
 
     public MainMenu() {
+        plantasMenu = new PlantasMenu();
     }
 
     public void menuPrincipal(){
@@ -16,7 +19,7 @@ public class MainMenu {
             System.out.println("**Sistema Gestor del Viviero**");
             System.out.println("1 - Entrar como invitado");
             System.out.println("2 - Iniciar sesión (NO IMPLEMENTADO)");
-            System.out.println("9 - Salir");
+            System.out.println("9 - Salir de la aplicación");
 
             try{
                 int answer = sc.nextInt();
@@ -52,7 +55,8 @@ public class MainMenu {
         do {
             System.out.println("**Sistema Gestor del Viviero**");
             System.out.println("1 - Ver plantas (NO IMPLEMENTADO)");
-            System.out.println("9 - Salir");
+            System.out.println("2 - Iniciar sesión (NO IMPLEMENTADO)");
+            System.out.println("9 - Salir de la aplicación");
 
             try{
                 int answer = sc.nextInt();
@@ -60,7 +64,7 @@ public class MainMenu {
                 switch (answer) {
                     case 1:
                         spacer();
-                        // ver plantas
+                        plantasMenu.vistaInvitado();
                         break;
                     case 9:
                         spacer();
@@ -86,7 +90,7 @@ public class MainMenu {
             System.out.println("1 - Ver plantas (NO IMPLEMENTADO)");
             System.out.println("2 - Gestión ejemplares (NO IMPLEMENTADO)");
             System.out.println("3 - Gestion de mensajes (NO IMPLEMENTADO)");
-            System.out.println("9 - Salir");
+            System.out.println("9 - Salir de la aplicación");
 
             try{
                 int answer = sc.nextInt();
@@ -128,7 +132,7 @@ public class MainMenu {
             System.out.println("1 - Gestion de plantas (NO IMPLEMENTADO)");
             System.out.println("2 - Gestión ejemplares (NO IMPLEMENTADO)");
             System.out.println("3 - Gestion de mensajes (NO IMPLEMENTADO)");
-            System.out.println("9 - Salir");
+            System.out.println("9 - Salir de la aplicación");
 
             try{
                 int answer = sc.nextInt();
