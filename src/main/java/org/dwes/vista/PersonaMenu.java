@@ -1,5 +1,10 @@
 package org.dwes.vista;
 
+import org.dwes.modelo.Credenciales;
+import org.dwes.modelo.Persona;
+import org.dwes.servicio.ServicioPersonaImpl;
+import org.dwes.servicio.ServicioPlantaImpl;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -8,13 +13,16 @@ public class PersonaMenu {
     boolean on = true;
     Scanner sc = new Scanner(System.in);
 
+    private ServicioPersonaImpl servicioPersona;
+
     public PersonaMenu() {
+        servicioPersona = ServicioPersonaImpl.getServicioPersona();
     }
 
     public void menuPersona(){
         do {
             System.out.println("**Sistema Gestor del Viviero** (Gestión de Personal)");
-            System.out.println("1 - Alta de un empleado (NO IMPLEMENTADO)");
+            System.out.println("1 - Alta de un empleado");
             System.out.println("9 - Atrás");
 
             try{
@@ -23,7 +31,25 @@ public class PersonaMenu {
                 switch (answer) {
                     case 1:
                         spacer();
-                        // Alta Empleados
+                        System.out.println("Alta de un nuevo empleado");
+                        Persona persona = new Persona();
+
+                        System.out.println("Introduce el nombre del nuevo empleado:");
+                        String nombre = sc.next();
+                        persona.setNombre(nombre);
+                        System.out.println("Introduce el email del nuevo empleado:");
+                        String email = sc.next();
+                        persona.setEmail(email);
+                        System.out.println("Introduce una contraseña para el empleado");
+                        String passwd = sc.next();
+                        if (!servicioPersona.save(persona)){
+                            System.out.println("Error al guardar el empleado.");
+                        } else {
+                            Credenciales credenciales = new Credenciales();
+                            credenciales.setUsuario(persona.getEmail());
+                            credenciales.setPassword(passwd);
+                        }
+
                         break;
                     case 9:
                         spacer();

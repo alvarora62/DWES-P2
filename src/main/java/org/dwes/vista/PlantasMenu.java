@@ -12,7 +12,6 @@ public class PlantasMenu {
     Scanner sc = new Scanner(System.in);
 
     private ServicioPlantaImpl servicioPlanta;
-    private PlantaDAOImpl plantaDAO;
 
     public PlantasMenu() {
         servicioPlanta = ServicioPlantaImpl.getServicioPlanta();

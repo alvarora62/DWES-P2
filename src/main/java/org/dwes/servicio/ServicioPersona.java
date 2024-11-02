@@ -1,13 +1,12 @@
-package org.dwes.repositorio;
+package org.dwes.servicio;
 
 import org.dwes.modelo.Persona;
 
 import java.util.List;
 
-public interface PersonaDAO {
+public interface ServicioPersona {
 
     List<Persona> findAll();
     Persona findById(Long id);
-    Persona findByEmail(String mail);
     boolean save(Persona persona);
 }
