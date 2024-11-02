@@ -83,6 +83,37 @@ public class PersonaDAOImpl implements PersonaDAO{
     }
 
     /**
+     * Devuelve una persona de la base de datos por codigo
+     *
+     * @param mail el emial de la persona a buscar
+     * @return si se encuentra una Persona la devuelve, si no devuelve nulo.
+     */
+    @Override
+    public Persona findByEmail(String mail) {
+        Persona persona = null;
+        String sql = "SELECT * FROM persona WHERE email = ?";
+
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, mail);
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                Long identificador = resultSet.getLong("id");
+                String nombre = resultSet.getString("nombre");
+                String email = resultSet.getString("email");
+                persona = new Persona(identificador, nombre, email);
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error buscando personas por email --> " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return persona;
+    }
+
+    /**
      * Guarda una Persona en la base de datos
      *
      * @param persona la planta a guardar

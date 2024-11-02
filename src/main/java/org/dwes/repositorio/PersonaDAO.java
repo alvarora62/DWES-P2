@@ -8,5 +8,6 @@ public interface PersonaDAO {
 
     List<Persona> findAll();
     Persona findById(Long id);
+    Persona findByEmail(String mail);
     boolean save(Persona persona);
 }
