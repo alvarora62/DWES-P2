@@ -1,5 +1,6 @@
 package org.dwes.vista;
 
+import org.dwes.modelo.Credenciales;
 import org.dwes.modelo.Persona;
 import org.dwes.servicio.ServicioPersonaImpl;
 import org.dwes.servicio.ServicioPlantaImpl;
@@ -39,8 +40,14 @@ public class PersonaMenu {
                         System.out.println("Introduce el email del nuevo empleado:");
                         String email = sc.next();
                         persona.setEmail(email);
+                        System.out.println("Introduce una contraseña para el empleado");
+                        String passwd = sc.next();
                         if (!servicioPersona.save(persona)){
                             System.out.println("Error al guardar el empleado.");
+                        } else {
+                            Credenciales credenciales = new Credenciales();
+                            credenciales.setUsuario(persona.getEmail());
+                            credenciales.setPassword(passwd);
                         }
 
                         break;
