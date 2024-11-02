@@ -1,7 +1,7 @@
 package org.dwes.servicio;
 
-import org.dwes.repositorio.PlantaDAOImpl;
 import org.dwes.modelo.Planta;
+import org.dwes.repositorio.PlantaDAOImpl;
 import org.dwes.util.Connexion;
 
 import java.sql.Connection;
@@ -26,21 +26,21 @@ public class ServicioPlantaImpl implements ServicioPlanta {
 
     @Override
     public List<Planta> listarPlantas() {
-        return servicioPlanta.listarPlantas();
+        return plantaDAO.findAll();
     }
 
     @Override
     public void save(Planta planta) {
-        servicioPlanta.save(planta);
+        plantaDAO.save(planta);
     }
 
     @Override
     public void delete(String codigo) {
-        servicioPlanta.delete(codigo);
+        plantaDAO.delete(codigo);
     }
 
     @Override
     public void update(Planta planta) {
-        servicioPlanta.update(planta);
+        plantaDAO.update(planta);
     }
 }
