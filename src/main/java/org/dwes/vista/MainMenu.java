@@ -22,10 +22,13 @@ public class MainMenu {
         servicioCredenciales = ServicioCredencialesImpl.getServicioCredenciales();
     }
 
+    /**
+     * Menu presentado al perfil de invitado (al abrir la aplicación).
+     */
     public void menuPrincipal(){
         do {
             System.out.println("**Sistema Gestor del Viviero**");
-            System.out.println("1 - Entrar como invitado");
+            System.out.println("1 - Ver plantas");
             System.out.println("2 - Iniciar sesión");
             System.out.println("9 - Salir de la aplicación");
 
@@ -35,7 +38,7 @@ public class MainMenu {
                 switch (answer) {
                     case 1:
                         spacer();
-                        menuPrincipalinvitado();
+                        plantasMenu.vistaInvitado();
                         on = true;
                         break;
                     case 2:
@@ -67,41 +70,6 @@ public class MainMenu {
                     case 9:
                         spacer();
                         System.out.println("Apagando aplicación.");
-                        on = false;
-                        break;
-                    default:
-                        spacer();
-                        System.err.println("Opción no válida. Por favor, introduzca alguna opción válida de las presentadas.");
-                        break;
-                }
-            } catch (InputMismatchException e){
-                spacer();
-                System.err.println("Dato introducido no válido. Por favor, introduce una opcion valida." + e.getMessage());
-                sc.next();
-            }
-        } while (on);
-    }
-
-    /**
-     * Menu presentado al perfil de invitado.
-     */
-    public void menuPrincipalinvitado(){
-        do {
-            System.out.println("**Sistema Gestor del Viviero**");
-            System.out.println("1 - Ver plantas");
-            System.out.println("9 - Volver");
-
-            try{
-                int answer = sc.nextInt();
-
-                switch (answer) {
-                    case 1:
-                        spacer();
-                        plantasMenu.vistaInvitado();
-                        break;
-                    case 9:
-                        spacer();
-                        System.out.println("Volviendo al menu principal.");
                         on = false;
                         break;
                     default:
