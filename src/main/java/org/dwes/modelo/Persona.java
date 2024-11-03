@@ -1,7 +1,5 @@
 package org.dwes.modelo;
 
-import java.util.Objects;
-
 public class Persona {
 
     private Long id;
@@ -13,6 +11,10 @@ public class Persona {
         this.nombre = nombre;
         this.email = email;
 
+    }
+
+    public Persona(Long id){
+        this.id = id;
     }
 
     public Persona() {
