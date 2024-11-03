@@ -24,16 +24,31 @@ public class ServicioCredencialesImpl implements ServicioCredenciales{
     }
 
     @Override
-    public Credenciales findByUsuario(String user) {
-        return credencialesDAO.findByUsuario(user);
-    }
-
-    @Override
     public boolean save(Credenciales credenciales) {
         Credenciales id = credencialesDAO.findByUsuario(credenciales.getUsuario());
         if (id.getId() != null){
             return false;
         }
         return credencialesDAO.save(credenciales);
+    }
+
+    /**
+     * Metodo para realizar el inicio de sesion en la aplicacion
+     *
+     * @param username - usuario a logear
+     * @param password - contraseña del usuario
+     * @return -1 si el login ha falado, 0 si es un empleado y 1 si es administrador
+     */
+    @Override
+    public int login(String username, String password){
+        Credenciales credenciales = credencialesDAO.findByUsuario(username);
+        if (username.equals("admin") && password.equals("admin")){
+            return 1;
+        }
+
+        if (username.equals(credenciales.getUsuario()) && password.equals(credenciales.getPassword())){
+            return 0;
+        }
+        return -1;
     }
 }
