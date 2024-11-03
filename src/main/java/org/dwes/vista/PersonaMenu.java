@@ -43,7 +43,7 @@ public class PersonaMenu {
                             System.out.print(" Datos personales del usuario.");
                             System.out.println("Introduce el nombre del nuevo empleado:");
                             String nombre = sc.next();
-                            System.out.println("Introduce el email del nuevo empleado:");
+                            System.out.println("Introduce el email del nuevo empleado: (el patron ha seguir debe ser x@x.(com/es/org, además el email no puede existir ya en el sistema)");
                             String email = sc.next();
 
                             persona.setNombre(nombre);
@@ -61,7 +61,7 @@ public class PersonaMenu {
                         // Creacion del objeto credenciales
                         do{
                             System.out.println("Datos de acceso para el usuario.");
-                            System.out.println("Usuaio del empleado: ");
+                            System.out.println("Usuaio del empleado: (el nombre de usuario debe de ser único)");
                             String usuario = sc.next();
                             System.out.println("Contraseña del empleado: ");
                             String password = sc.next();
@@ -72,7 +72,7 @@ public class PersonaMenu {
                             if (servicioCredenciales.save(credenciales)){
                                 guardado = true;
                             } else {
-                                System.err.println("Usuario no válido, ya existe.");
+                                System.err.println("Usuario ya existe.");
                             }
                         }while (!guardado);
                         spacer();
