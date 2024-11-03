@@ -46,7 +46,6 @@ public class CredencialesDAOImpl implements CredencialesDAO{
 
         } catch (SQLException e) {
             System.err.println("Error haciendo el listado de credenciales --> " + e.getMessage());
-            e.printStackTrace();
         }
 
         return listaCredenciales;
@@ -75,7 +74,6 @@ public class CredencialesDAOImpl implements CredencialesDAO{
 
         } catch (SQLException e) {
             System.err.println("Error buscando personas por usuario --> " + e.getMessage());
-            e.printStackTrace();
         }
 
         return credenciales;
@@ -83,21 +81,19 @@ public class CredencialesDAOImpl implements CredencialesDAO{
 
     @Override
     public boolean save(Credenciales credenciales) {
-        String sql = "INSERT INTO credenciales (id, usuario, password, fk_persona) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO credenciales (usuario, password, fk_persona) VALUES (?, ?, ?)";
 
         try {
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setLong(1, credenciales.getId());
-            preparedStatement.setString(2, credenciales.getUsuario());
-            preparedStatement.setString(3, credenciales.getPassword());
-            preparedStatement.setLong(4, credenciales.getFk_persona().getId());
+            preparedStatement.setString(1, credenciales.getUsuario());
+            preparedStatement.setString(2, credenciales.getPassword());
+            preparedStatement.setLong(3, credenciales.getFk_persona().getId());
             preparedStatement.executeUpdate();
 
             return true;
 
         } catch (SQLException e) {
             System.err.println("Error al guardar la credencial --> " + e.getMessage());
-            e.printStackTrace();
             return false;
         }
     }

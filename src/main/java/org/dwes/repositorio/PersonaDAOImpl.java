@@ -43,7 +43,6 @@ public class PersonaDAOImpl implements PersonaDAO{
 
         } catch (SQLException e) {
             System.err.println("Error haciendo el listado de personas --> " + e.getMessage());
-            e.printStackTrace();
         }
 
         return personas;
@@ -76,7 +75,6 @@ public class PersonaDAOImpl implements PersonaDAO{
 
         } catch (SQLException e) {
             System.err.println("Error buscando personas por id --> " + e.getMessage());
-            e.printStackTrace();
         }
 
         return persona;
@@ -109,7 +107,6 @@ public class PersonaDAOImpl implements PersonaDAO{
 
         } catch (SQLException e) {
             System.err.println("Error buscando personas por email --> " + e.getMessage());
-            e.printStackTrace();
         }
 
         return persona;
@@ -123,20 +120,18 @@ public class PersonaDAOImpl implements PersonaDAO{
      */
     @Override
     public boolean save(Persona persona) {
-        String sql = "INSERT INTO persona (id, nombre, email) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO persona (nombre, email) VALUES (?, ?)";
 
         try {
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setLong(1, persona.getId());
-            preparedStatement.setString(2, persona.getNombre());
-            preparedStatement.setString(3, persona.getEmail());
+            preparedStatement.setString(1, persona.getNombre());
+            preparedStatement.setString(2, persona.getEmail());
             preparedStatement.executeUpdate();
 
             return true;
 
         } catch (SQLException e) {
             System.err.println("Error al guardar la persona --> " + e.getMessage());
-            e.printStackTrace();
             return false;
         }
     }
