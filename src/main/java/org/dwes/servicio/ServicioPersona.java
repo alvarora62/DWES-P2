@@ -8,5 +8,6 @@ public interface ServicioPersona {
 
     List<Persona> findAll();
     Persona findById(Long id);
+    Persona findByEmail(String email);
     boolean save(Persona persona);
 }
