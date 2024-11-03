@@ -11,6 +11,7 @@ public class ServicioPersonaImpl implements ServicioPersona{
 
     private static ServicioPersonaImpl servicioPersona;
     private PersonaDAOImpl personaDAO;
+    private final String emailPattern = "^[\\w]+@[A-Za-z0-9-]+\\.(com|org|es)$";
 
     private ServicioPersonaImpl() {
         Connection connexion = Connexion.getConnexion().getConexion();
@@ -35,11 +36,16 @@ public class ServicioPersonaImpl implements ServicioPersona{
     }
 
     @Override
+    public Persona findByEmail(String email){
+        return personaDAO.findByEmail(email);
+    }
+
+    @Override
     public boolean save(Persona persona) {
-        if (!persona.getEmail().matches("[A-z][0-9]+@+[A-z][0-9]+(com|es|org)") && personaDAO.findByEmail(persona.getEmail()) != null){
+        Persona emailCheck = personaDAO.findByEmail(persona.getEmail());
+        if (!persona.getEmail().matches(emailPattern) && !persona.getEmail().equals(emailCheck.getEmail())){
             return false;
         }
-
         return personaDAO.save(persona);
     }
 }
