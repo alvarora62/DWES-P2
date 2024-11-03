@@ -23,7 +23,6 @@ public class ServicioCredencialesImpl implements ServicioCredenciales{
         return servicioCredenciales;
     }
 
-
     @Override
     public Credenciales findByUsuario(String user) {
         return credencialesDAO.findByUsuario(user);
@@ -31,7 +30,8 @@ public class ServicioCredencialesImpl implements ServicioCredenciales{
 
     @Override
     public boolean save(Credenciales credenciales) {
-        if (credencialesDAO.findByUsuario(credenciales.getUsuario()).getId() != 0){
+        Credenciales id = credencialesDAO.findByUsuario(credenciales.getUsuario());
+        if (id.getId() != null){
             return false;
         }
         return credencialesDAO.save(credenciales);
