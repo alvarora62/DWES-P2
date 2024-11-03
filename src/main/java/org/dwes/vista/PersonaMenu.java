@@ -2,8 +2,8 @@ package org.dwes.vista;
 
 import org.dwes.modelo.Credenciales;
 import org.dwes.modelo.Persona;
+import org.dwes.servicio.ServicioCredencialesImpl;
 import org.dwes.servicio.ServicioPersonaImpl;
-import org.dwes.servicio.ServicioPlantaImpl;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -14,9 +14,11 @@ public class PersonaMenu {
     Scanner sc = new Scanner(System.in);
 
     private ServicioPersonaImpl servicioPersona;
+    private ServicioCredencialesImpl servicioCredenciales;
 
     public PersonaMenu() {
         servicioPersona = ServicioPersonaImpl.getServicioPersona();
+        servicioCredenciales = ServicioCredencialesImpl.getServicioCredenciales();
     }
 
     public void menuPersona(){
@@ -31,25 +33,51 @@ public class PersonaMenu {
                 switch (answer) {
                     case 1:
                         spacer();
-                        System.out.println("Alta de un nuevo empleado");
                         Persona persona = new Persona();
+                        Credenciales credenciales = new Credenciales();
+                        System.out.println("Alta de un nuevo empleado. ");
+                        boolean guardado = false;
 
-                        System.out.println("Introduce el nombre del nuevo empleado:");
-                        String nombre = sc.next();
-                        persona.setNombre(nombre);
-                        System.out.println("Introduce el email del nuevo empleado:");
-                        String email = sc.next();
-                        persona.setEmail(email);
-                        System.out.println("Introduce una contraseña para el empleado");
-                        String passwd = sc.next();
-                        if (!servicioPersona.save(persona)){
-                            System.out.println("Error al guardar el empleado.");
-                        } else {
-                            Credenciales credenciales = new Credenciales();
-                            credenciales.setUsuario(persona.getEmail());
-                            credenciales.setPassword(passwd);
-                        }
+                        // Creacion del objeto persona
+                        do {
+                            System.out.print(" Datos personales del usuario.");
+                            System.out.println("Introduce el nombre del nuevo empleado:");
+                            String nombre = sc.next();
+                            System.out.println("Introduce el email del nuevo empleado:");
+                            String email = sc.next();
 
+                            persona.setNombre(nombre);
+                            persona.setEmail(email);
+                            if (servicioPersona.save(persona)){
+                                guardado = true;
+                            } else {
+                                System.err.println("Email con formato invalido o repetido.");
+                            }
+                        }while (!guardado);
+                        guardado = false;
+                        spacer();
+
+
+                        // Creacion del objeto credenciales
+                        do{
+                            System.out.println("Datos de acceso para el usuario.");
+                            System.out.println("Usuaio del empleado: ");
+                            String usuario = sc.next();
+                            System.out.println("Contraseña del empleado: ");
+                            String password = sc.next();
+
+                            credenciales.setUsuario(usuario);
+                            credenciales.setPassword(password);
+                            credenciales.setFk_persona(servicioPersona.findByEmail(persona.getEmail()));
+                            if (servicioCredenciales.save(credenciales)){
+                                guardado = true;
+                            } else {
+                                System.err.println("Usuario no válido, ya existe.");
+                            }
+                        }while (!guardado);
+                        spacer();
+
+                        System.out.println("Empleado y credenciales de acceso creadas con exito.");
                         break;
                     case 9:
                         spacer();

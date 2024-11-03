@@ -6,12 +6,14 @@ import java.util.Scanner;
 public class MainMenu {
 
     private final PlantasMenu plantasMenu;
+    private final PersonaMenu personaMenu;
 
     boolean on = true;
     Scanner sc = new Scanner(System.in);
 
     public MainMenu() {
         plantasMenu = new PlantasMenu();
+        personaMenu = new PersonaMenu();
     }
 
     public void menuPrincipal(){
@@ -132,6 +134,7 @@ public class MainMenu {
             System.out.println("1 - Gestion de plantas (NO IMPLEMENTADO)");
             System.out.println("2 - Gestión ejemplares (NO IMPLEMENTADO)");
             System.out.println("3 - Gestion de mensajes (NO IMPLEMENTADO)");
+            System.out.println("4 - Gestion de empleados");
             System.out.println("9 - Salir de la aplicación");
 
             try{
@@ -145,6 +148,13 @@ public class MainMenu {
                     case 2:
                         spacer();
                         // inicio sesion
+                        break;
+                    case 3:
+                        spacer();
+                        break;
+                    case 4:
+                        spacer();
+                        personaMenu.menuPersona();
                         break;
                     case 9:
                         spacer();
