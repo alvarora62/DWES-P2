@@ -56,11 +56,11 @@ public class PlantaDAOImpl implements PlantaDAO {
      * Devuelve una planta de la base de datos por codigo
      *
      * @param id el codigo de la planta a buscar
-     * @return si se encuentra una Planta la devuelve, si no devuelve nulo.
+     * @return si se encuentra una Planta la devuelve, si no devuelve un objeto vacio.
      */
     @Override
     public Planta findById(String id) {
-        Planta planta = null;
+        Planta planta = new Planta();
         String sql = "SELECT * FROM planta WHERE id = ?";
 
         try {
@@ -72,14 +72,14 @@ public class PlantaDAOImpl implements PlantaDAO {
                 String codigo = resultSet.getString("codigo");
                 String nombreComun = resultSet.getString("nombre_comun");
                 String nombreCientifico = resultSet.getString("nombre_cientifico");
-                planta = new Planta(codigo, nombreComun, nombreCientifico);
+                planta.setCodigo(codigo);
+                planta.setNombreComun(nombreComun);
+                planta.setNombreCientifico(nombreCientifico);
             }
-
         } catch (SQLException e) {
             System.err.println("Error buscando plantas por codigo --> " + e.getMessage());
             e.printStackTrace();
         }
-
         return planta;
     }
 

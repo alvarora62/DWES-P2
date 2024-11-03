@@ -1,8 +1,6 @@
 package org.dwes.repositorio;
 
 import org.dwes.modelo.Persona;
-import org.dwes.modelo.Planta;
-import org.dwes.util.Connexion;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,7 +20,7 @@ public class PersonaDAOImpl implements PersonaDAO{
     }
 
     /**
-     * Da un listado de todas las plantas de la base de datos
+     * Da un listado de todas las personas de la base de datos
      *
      * @return lista de objetos Persona
      */
@@ -55,11 +53,11 @@ public class PersonaDAOImpl implements PersonaDAO{
      * Devuelve una persona de la base de datos por codigo
      *
      * @param id el codigo de la persona a buscar
-     * @return si se encuentra una Persona la devuelve, si no devuelve nulo.
+     * @return si se encuentra una Persona la devuelve, si no devuelve un objeto con vacio.
      */
     @Override
     public Persona findById(Long id) {
-        Persona persona = null;
+        Persona persona = new Persona();
         String sql = "SELECT * FROM persona WHERE id = ?";
 
         try {
@@ -71,7 +69,9 @@ public class PersonaDAOImpl implements PersonaDAO{
                 Long identificador = resultSet.getLong("id");
                 String nombre = resultSet.getString("nombre");
                 String email = resultSet.getString("email");
-                persona = new Persona(identificador, nombre, email);
+                persona.setId(identificador);
+                persona.setNombre(nombre);
+                persona.setEmail(email);
             }
 
         } catch (SQLException e) {
@@ -86,11 +86,11 @@ public class PersonaDAOImpl implements PersonaDAO{
      * Devuelve una persona de la base de datos por codigo
      *
      * @param mail el emial de la persona a buscar
-     * @return si se encuentra una Persona la devuelve, si no devuelve nulo.
+     * @return si se encuentra una Persona la devuelve, si no devuelve un objeto vacio.
      */
     @Override
     public Persona findByEmail(String mail) {
-        Persona persona = null;
+        Persona persona = new Persona();
         String sql = "SELECT * FROM persona WHERE email = ?";
 
         try {
@@ -102,7 +102,9 @@ public class PersonaDAOImpl implements PersonaDAO{
                 Long identificador = resultSet.getLong("id");
                 String nombre = resultSet.getString("nombre");
                 String email = resultSet.getString("email");
-                persona = new Persona(identificador, nombre, email);
+                persona.setId(identificador);
+                persona.setNombre(nombre);
+                persona.setEmail(email);
             }
 
         } catch (SQLException e) {
@@ -116,7 +118,7 @@ public class PersonaDAOImpl implements PersonaDAO{
     /**
      * Guarda una Persona en la base de datos
      *
-     * @param persona la planta a guardar
+     * @param persona la persona a guardar
      * @return devuelve true si la operacion se hace y false si algo falla
      */
     @Override

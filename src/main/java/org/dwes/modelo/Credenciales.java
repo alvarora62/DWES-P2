@@ -9,11 +9,11 @@ public class Credenciales {
     private String password;
     private Persona fk_persona;
 
-    public Credenciales(Long id, String password, Persona fk_persona, String usuario) {
+    public Credenciales(Long id, String usuario, String password, Persona fk_persona) {
         this.id = id;
+        this.usuario = usuario;
         this.password = password;
         this.fk_persona = fk_persona;
-        this.usuario = usuario;
     }
 
     public Credenciales() {
