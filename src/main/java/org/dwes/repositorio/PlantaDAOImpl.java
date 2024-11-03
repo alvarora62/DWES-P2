@@ -9,9 +9,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Implementacion de la interfaz PlantaDAO
- */
 public class PlantaDAOImpl implements PlantaDAO {
 
     private final Connection connection;
@@ -104,7 +101,6 @@ public class PlantaDAOImpl implements PlantaDAO {
 
         } catch (SQLException e) {
             System.err.println("Error al guardar la planta --> " + e.getMessage());
-            e.printStackTrace();
             return false;
         }
     }
@@ -128,7 +124,6 @@ public class PlantaDAOImpl implements PlantaDAO {
 
         } catch (SQLException e) {
             System.err.println("Error eliminando la planta --> " + e.getMessage());
-            e.printStackTrace();
             return false;
         }
     }
@@ -154,7 +149,6 @@ public class PlantaDAOImpl implements PlantaDAO {
 
         } catch (SQLException e) {
             System.err.println("Error actualizando la planta --> " + e.getMessage());
-            e.printStackTrace();
             return false;
         }
     }
