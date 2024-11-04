@@ -20,13 +20,8 @@ public class PlantasMenu {
     }
 
     /**
-     * Vista para el usuario invitado, automaticamente al llegar aqui muestra el listado de plantas.
+     * Vista del menu de plantas para un perfil de administrador
      */
-    public void vistaInvitado(){
-        listadoPlantas();
-    }
-
-
     public void menuPlantas(){
         do {
             System.out.println("\t\t\t**Sistema Gestor del Viviero** (Gestión de Personal)");

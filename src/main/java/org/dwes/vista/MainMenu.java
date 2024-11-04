@@ -38,16 +38,16 @@ public class MainMenu {
                 switch (answer) {
                     case 1:
                         spacer();
-                        plantasMenu.vistaInvitado();
+                        plantasMenu.listadoPlantas();
                         on = true;
                         break;
                     case 2:
                         spacer();
                         int nivel;
 
-                        System.out.println("Nombre de usuario");
+                        System.out.println("\tNombre de usuario");
                         username = sc.next();
-                        System.out.println("Contraseña:");
+                        System.out.println("\tContraseña:");
                         password = sc.next();
 
                         nivel = servicioCredenciales.login(username,password);
