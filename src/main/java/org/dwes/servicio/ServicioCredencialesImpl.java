@@ -10,6 +10,7 @@ public class ServicioCredencialesImpl implements ServicioCredenciales{
 
     private static ServicioCredencialesImpl servicioCredenciales;
     private CredencialesDAOImpl credencialesDAO;
+    private final String passwdPattern = "^(?=.*[A-Z])(?=.*\\\\d)(?=.*[!@#$%^&*(),.?\\\":{}|<>])[A-Za-z\\\\d!@#$%^&*(),.?\\\":{}|<>]{8,}$";
 
     private ServicioCredencialesImpl() {
         Connection connexion = Connexion.getConnexion().getConexion();
@@ -27,6 +28,10 @@ public class ServicioCredencialesImpl implements ServicioCredenciales{
     public boolean save(Credenciales credenciales) {
         Credenciales id = credencialesDAO.findByUsuario(credenciales.getUsuario());
         if (id.getId() != null){
+            return false;
+        }
+
+        if (!credenciales.getPassword().matches(passwdPattern)){
             return false;
         }
         return credencialesDAO.save(credenciales);

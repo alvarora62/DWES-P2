@@ -63,7 +63,7 @@ public class PersonaMenu {
                             System.out.println("Datos de acceso para el usuario.");
                             System.out.println("Usuaio del empleado: (el nombre de usuario debe de ser único)");
                             String usuario = sc.next();
-                            System.out.println("Contraseña del empleado: ");
+                            System.out.println("Contraseña del empleado: (tienes que ser de almenos 8 caracteres, incluir una mayuscula, un simbolo y un numero como minimo.");
                             String password = sc.next();
 
                             credenciales.setUsuario(usuario);
