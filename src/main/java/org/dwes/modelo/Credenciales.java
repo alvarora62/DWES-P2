@@ -1,7 +1,5 @@
 package org.dwes.modelo;
 
-import java.util.Objects;
-
 public class Credenciales {
 
     private Long id;

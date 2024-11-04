@@ -41,8 +41,4 @@ public class Planta {
         this.nombreComun = nombreComun;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(codigo, nombreComun, nombreCientifico);
-    }
 }
