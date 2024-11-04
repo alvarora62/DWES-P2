@@ -17,15 +17,19 @@ public class PlantasMenu {
         servicioPlanta = ServicioPlantaImpl.getServicioPlanta();
     }
 
+    /**
+     * Vista para el usuario invitado, automaticamente al llegar aqui muestra el listado de plantas.
+     */
     public void vistaInvitado(){
         servicioPlanta.listarPlantas();
     }
+
 
     public void menuPlantas(){
         do {
             System.out.println("**Sistema Gestor del Viviero** (Gestión de Personal)");
             System.out.println("1 - Registrar planta (NO IMPLEMENTADO)");
-            System.out.println("2 - Listar plantas (NO IMPLEMENTADO)");
+            System.out.println("2 - Listar plantas");
             System.out.println("3 - Modificar planta (NO IMPLEMENTADO)");
             System.out.println("4 - Eliminar planta (NO IMPLEMENTADO)");
             System.out.println("9 - Atrás");
