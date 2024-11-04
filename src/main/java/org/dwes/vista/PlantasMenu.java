@@ -27,12 +27,11 @@ public class PlantasMenu {
 
     public void menuPlantas(){
         do {
-            System.out.println("**Sistema Gestor del Viviero** (Gestión de Personal)");
-            System.out.println("1 - Registrar planta (NO IMPLEMENTADO)");
-            System.out.println("2 - Listar plantas");
-            System.out.println("3 - Modificar planta (NO IMPLEMENTADO)");
-            System.out.println("4 - Eliminar planta (NO IMPLEMENTADO)");
-            System.out.println("9 - Atrás");
+            System.out.println("\t\t\t**Sistema Gestor del Viviero** (Gestión de Personal)");
+            System.out.println("\t\t\t1 - Registrar planta (NO IMPLEMENTADO)");
+            System.out.println("\t\t\t2 - Listar plantas");
+            System.out.println("\t\t\t3 - Modificar planta (NO IMPLEMENTADO)");
+            System.out.println("\t\t\t9 - Atrás");
 
             try{
                 int answer = sc.nextInt();
