@@ -27,10 +27,10 @@ public class MainMenu {
      */
     public void menuPrincipal(){
         do {
-            System.out.println("**Sistema Gestor del Viviero**");
-            System.out.println("1 - Ver plantas");
-            System.out.println("2 - Iniciar sesión");
-            System.out.println("9 - Salir de la aplicación");
+            System.out.println("\t\t\t**Sistema Gestor del Viviero**");
+            System.out.println("\t\t\t1 - Ver plantas");
+            System.out.println("\t\t\t2 - Iniciar sesión");
+            System.out.println("\t\t\t9 - Salir de la aplicación");
 
             try{
                 int answer = sc.nextInt();
@@ -38,16 +38,16 @@ public class MainMenu {
                 switch (answer) {
                     case 1:
                         spacer();
-                        plantasMenu.vistaInvitado();
+                        plantasMenu.listadoPlantas();
                         on = true;
                         break;
                     case 2:
                         spacer();
                         int nivel;
 
-                        System.out.println("Nombre de usuario");
+                        System.out.println("\tNombre de usuario");
                         username = sc.next();
-                        System.out.println("Contraseña:");
+                        System.out.println("\tContraseña:");
                         password = sc.next();
 
                         nivel = servicioCredenciales.login(username,password);
@@ -90,9 +90,9 @@ public class MainMenu {
      */
     public void menuPrincipalPersonal(){
         do {
-            System.out.println("**Sistema Gestor del Viviero** Usuario Actual: " + username);
-            System.out.println("1 - Gestión ejemplares (NO IMPLEMENTADO)");
-            System.out.println("9 - Cerrar Sesión");
+            System.out.println("\t\t\t**Sistema Gestor del Viviero** Usuario Actual: " + username);
+            System.out.println("\t\t\t1 - Gestión ejemplares (NO IMPLEMENTADO)");
+            System.out.println("\t\t\t9 - Cerrar Sesión");
 
             try{
                 int answer = sc.nextInt();
@@ -125,11 +125,11 @@ public class MainMenu {
      */
     public void menuPrincipalAdmin(){
         do {
-            System.out.println("**Sistema Gestor del Viviero** Usuario Actual " + username);
-            System.out.println("1 - Gestion de plantas (NO IMPLEMENTADO)");
-            System.out.println("2 - Gestión ejemplares (NO IMPLEMENTADO)");
-            System.out.println("3 - Gestion de empleados");
-            System.out.println("9 - Salir de la aplicación");
+            System.out.println("\t\t\t**Sistema Gestor del Viviero** Usuario Actual " + username);
+            System.out.println("\t\t\t1 - Gestion de plantas");
+            System.out.println("\t\t\t2 - Gestión ejemplares (NO IMPLEMENTADO)");
+            System.out.println("\t\t\t3 - Gestion de empleados");
+            System.out.println("\t\t\t9 - Cerrar Sesion");
 
             try{
                 int answer = sc.nextInt();
@@ -137,7 +137,7 @@ public class MainMenu {
                 switch (answer) {
                     case 1:
                         spacer();
-                        // gestion plantas
+                        plantasMenu.menuPlantas();
                         break;
                     case 2:
                         spacer();

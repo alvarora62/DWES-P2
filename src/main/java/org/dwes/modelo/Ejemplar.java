@@ -1,7 +1,5 @@
 package org.dwes.modelo;
 
-import java.util.Objects;
-
 public class Ejemplar {
     private Long id;
     private String nombre;
@@ -46,7 +44,11 @@ public class Ejemplar {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(id, nombre, planta);
+    public String toString() {
+        return "Ejemplar{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", planta=" + planta +
+                '}';
     }
 }

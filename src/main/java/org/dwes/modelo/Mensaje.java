@@ -1,7 +1,6 @@
 package org.dwes.modelo;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 public class Mensaje {
 

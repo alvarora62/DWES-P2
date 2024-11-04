@@ -42,7 +42,7 @@ public class Planta {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(codigo, nombreComun, nombreCientifico);
+    public String toString() {
+        return "Codigo: " + codigo + "\tNombre Comun: " + nombreComun + "\tNombre Cientifico: " + nombreCientifico;
     }
 }

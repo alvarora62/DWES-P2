@@ -11,6 +11,7 @@ public class ServicioPlantaImpl implements ServicioPlanta {
 
     private static ServicioPlantaImpl servicioPlanta;
     private PlantaDAOImpl plantaDAO;
+    private final String codigoPattern = "^[A-Z]$";
 
     private ServicioPlantaImpl() {
         Connection connexion = Connexion.getConnexion().getConexion();
@@ -30,8 +31,11 @@ public class ServicioPlantaImpl implements ServicioPlanta {
     }
 
     @Override
-    public void save(Planta planta) {
-        plantaDAO.save(planta);
+    public boolean save(Planta planta) {
+        if (!planta.getCodigo().matches(codigoPattern)){
+            return false;
+        }
+        return plantaDAO.save(planta);
     }
 
     @Override

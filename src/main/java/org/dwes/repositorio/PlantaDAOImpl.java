@@ -35,8 +35,8 @@ public class PlantaDAOImpl implements PlantaDAO {
 
             while (resultSet.next()) {
                 String codigo = resultSet.getString("codigo");
-                String nombreComun = resultSet.getString("nombre_comun");
-                String nombreCientifico = resultSet.getString("nombre_cientifico");
+                String nombreComun = resultSet.getString("nombreComun");
+                String nombreCientifico = resultSet.getString("nombreCientifico");
                 Planta planta = new Planta(codigo, nombreComun, nombreCientifico);
                 plantas.add(planta);
             }
@@ -58,7 +58,7 @@ public class PlantaDAOImpl implements PlantaDAO {
     @Override
     public Planta findById(String id) {
         Planta planta = new Planta();
-        String sql = "SELECT * FROM planta WHERE id = ?";
+        String sql = "SELECT * FROM planta WHERE codigo = ?";
 
         try {
             preparedStatement = connection.prepareStatement(sql);
@@ -88,7 +88,7 @@ public class PlantaDAOImpl implements PlantaDAO {
      */
     @Override
     public boolean save(Planta planta) {
-        String sql = "INSERT INTO planta (codigo, nombre_comun, nombre_cientifico) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO planta (codigo, nombreComun, nombreCientifico) VALUES (?, ?, ?)";
 
         try {
             preparedStatement = connection.prepareStatement(sql);
@@ -136,7 +136,7 @@ public class PlantaDAOImpl implements PlantaDAO {
      */
     @Override
     public boolean update(Planta planta) {
-        String sql = "UPDATE planta SET nombre_comun = ?, nombre_cientifico = ? WHERE codigo = ?";
+        String sql = "UPDATE planta SET nombreComun = ?, nombreCientifico = ? WHERE codigo = ?";
 
         try {
             preparedStatement = connection.prepareStatement(sql);

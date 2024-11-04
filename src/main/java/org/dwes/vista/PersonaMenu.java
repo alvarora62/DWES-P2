@@ -23,9 +23,9 @@ public class PersonaMenu {
 
     public void menuPersona(){
         do {
-            System.out.println("**Sistema Gestor del Viviero** (Gestión de Personal)");
-            System.out.println("1 - Alta de un empleado");
-            System.out.println("9 - Atrás");
+            System.out.println("\t\t\t**Sistema Gestor del Viviero** (Gestión de Personal)");
+            System.out.println("\t\t\t1 - Alta de un empleado");
+            System.out.println("\t\t\t9 - Atrás");
 
             try{
                 int answer = sc.nextInt();
@@ -40,10 +40,10 @@ public class PersonaMenu {
 
                         // Creacion del objeto persona
                         do {
-                            System.out.print(" Datos personales del usuario.");
-                            System.out.println("Introduce el nombre del nuevo empleado:");
+                            System.out.print("\tDatos personales del usuario.");
+                            System.out.println("\tIntroduce el nombre del nuevo empleado:");
                             String nombre = sc.next();
-                            System.out.println("Introduce el email del nuevo empleado: (el patron ha seguir debe ser x@x.(com/es/org, además el email no puede existir ya en el sistema)");
+                            System.out.println("\tIntroduce el email del nuevo empleado: \nPatron que ha seguir x@x.(com/es/org).\nEl email no puede existir ya en el sistema.");
                             String email = sc.next();
 
                             persona.setNombre(nombre);
@@ -60,10 +60,10 @@ public class PersonaMenu {
 
                         // Creacion del objeto credenciales
                         do{
-                            System.out.println("Datos de acceso para el usuario.");
-                            System.out.println("Usuaio del empleado: (el nombre de usuario debe de ser único)");
+                            System.out.println("\tDatos de acceso para el usuario.");
+                            System.out.println("\tUsuaio del empleado: \nDebe de ser único.)");
                             String usuario = sc.next();
-                            System.out.println("Contraseña del empleado: (tienes que ser de almenos 8 caracteres, incluir una mayuscula, un simbolo y un numero como minimo.");
+                            System.out.println("\tContraseña del empleado: \nAl menos 8 caracteres.\nIncluir como mínimo una mayuscula, un símbolo y un número.");
                             String password = sc.next();
 
                             credenciales.setUsuario(usuario);
