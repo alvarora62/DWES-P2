@@ -7,7 +7,8 @@ import java.util.List;
 public interface ServicioPlanta {
 
     List<Planta> listarPlantas();
+    Planta findByCodigo(String codigo);
     boolean save(Planta planta);
     void delete(String codigo);
-    void update(Planta planta);
+    boolean update(Planta planta);
 }

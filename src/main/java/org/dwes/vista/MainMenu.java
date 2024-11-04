@@ -80,7 +80,7 @@ public class MainMenu {
                 }
             } catch (InputMismatchException e){
                 spacer();
-                System.err.println("Dato introducido no válido. Por favor, introduce una opcion valida." + e.getMessage());
+                System.err.println("Dato introducido no válido. Por favor, introduce una opcion valida.");
                 sc.next();
             }
         } while (on);
@@ -115,7 +115,7 @@ public class MainMenu {
                 }
             } catch (InputMismatchException e){
                 spacer();
-                System.err.println("Dato introducido no válido. Por favor, introduce una opcion valida." + e.getMessage());
+                System.err.println("Dato introducido no válido. Por favor, introduce una opcion valida.");
                 sc.next();
             }
         } while (on);
@@ -160,7 +160,7 @@ public class MainMenu {
                 }
             } catch (InputMismatchException e){
                 spacer();
-                System.err.println("Dato introducido no válido. Por favor, introduce una opcion valida." + e.getMessage());
+                System.err.println("Dato introducido no válido. Por favor, introduce una opcion valida.");
                 sc.next();
             }
         } while (on);

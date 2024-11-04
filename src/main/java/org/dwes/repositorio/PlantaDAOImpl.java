@@ -67,8 +67,8 @@ public class PlantaDAOImpl implements PlantaDAO {
 
             if (resultSet.next()) {
                 String codigo = resultSet.getString("codigo");
-                String nombreComun = resultSet.getString("nombre_comun");
-                String nombreCientifico = resultSet.getString("nombre_cientifico");
+                String nombreComun = resultSet.getString("nombreComun");
+                String nombreCientifico = resultSet.getString("nombreCientifico");
                 planta.setCodigo(codigo);
                 planta.setNombreComun(nombreComun);
                 planta.setNombreCientifico(nombreCientifico);
