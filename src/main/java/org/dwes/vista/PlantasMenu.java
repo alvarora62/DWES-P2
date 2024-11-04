@@ -12,6 +12,7 @@ import java.util.Scanner;
 public class PlantasMenu {
 
     boolean on = true;
+    boolean estado = false;
     Scanner sc = new Scanner(System.in);
 
     private final Controlador controlador;
@@ -26,9 +27,9 @@ public class PlantasMenu {
     public void menuPlantas(){
         do {
             System.out.println("\t\t\t**Sistema Gestor del Viviero** (Gestión de Personal)");
-            System.out.println("\t\t\t1 - Registrar planta (NO IMPLEMENTADO)");
+            System.out.println("\t\t\t1 - Registrar planta");
             System.out.println("\t\t\t2 - Listar plantas");
-            System.out.println("\t\t\t3 - Modificar planta (NO IMPLEMENTADO)");
+            System.out.println("\t\t\t3 - Modificar planta");
             System.out.println("\t\t\t9 - Atrás");
 
             try{
@@ -37,7 +38,7 @@ public class PlantasMenu {
                 switch (answer) {
                     case 1:
                         spacer();
-                        boolean guardado = false;
+                        estado = false;
 
                         System.out.println("Registro de una nueva planta.");
                         System.out.println("");
@@ -55,12 +56,12 @@ public class PlantasMenu {
                             if (controlador.getServicioPlanta().save(planta)){
                                 spacer();
                                 System.out.println("Planta registrada correctamente");
-                                guardado = true;
+                                estado = true;
                             } else {
                                 System.err.println("Error de formato en la planta introducida.");
                             }
-
-                        }while (!guardado);
+                        }while (!estado);
+                        estado = false;
                         break;
                     case 2:
                         spacer();
@@ -68,7 +69,48 @@ public class PlantasMenu {
                         break;
                     case 3:
                         spacer();
-                        // Modificar planta
+                        estado = false;
+
+                        System.out.println("Actualizar una planta existente.");
+                        System.out.println("");
+                        String codigo;
+
+                        do {
+                            System.out.println("¿Qué planta quieres actualizar?");
+                            System.out.println("CODIGO:");
+                            codigo = sc.next();
+
+                            Planta findByCodigo = controlador.getServicioPlanta().findByCodigo(codigo);
+                            if (findByCodigo != null){
+                                estado = true;
+                                System.out.println("Planta valida para la actualizacion de datos.");
+                            } else {
+                                System.out.println("Planta no encontrada, intenta otro codigo.");
+                            }
+                        }while (!estado);
+                        estado = false;
+
+                        do {
+                            System.out.println("\tNuevo nombre comun para la planta:");
+                            String nombreComun = sc.next();
+                            System.out.println("\tNuevo nombre cientifico para la planta");
+                            String nombreCientifico = sc.next();
+
+                            Planta planta = new Planta();
+                            planta.setCodigo(codigo);
+                            planta.setNombreComun(nombreComun);
+                            planta.setNombreCientifico(nombreCientifico);
+
+                            if (controlador.getServicioPlanta().update(planta)){
+                                spacer();
+                                System.out.println("Planta actualizada correctamente");
+                                estado = true;
+                            } else {
+                                System.err.println("Error de formato en la planta introducida.");
+                            }
+
+                        }while (!estado);
+                        estado = false;
                         break;
                     case 4:
                         spacer();
@@ -85,7 +127,7 @@ public class PlantasMenu {
                 }
             } catch (InputMismatchException e){
                 spacer();
-                System.err.println("Dato introducido no válido. Por favor, introduce una opcion valida." + e.getMessage());
+                System.err.println("Dato introducido no válido. Por favor, introduce una opcion valida.");
                 sc.next();
             }
         } while (on);
@@ -110,9 +152,11 @@ public class PlantasMenu {
         } else {
             System.out.println("Listado de plantas");
             System.out.println("");
+            System.out.println("--------------------------------------------------------------------");
             for (Planta planta : plantas) {
                 System.out.println(planta.toString());
             };
+            System.out.println("--------------------------------------------------------------------");
         }
     }
 }
