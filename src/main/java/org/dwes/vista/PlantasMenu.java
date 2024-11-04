@@ -1,5 +1,6 @@
 package org.dwes.vista;
 
+import org.dwes.controlador.Controlador;
 import org.dwes.modelo.Planta;
 import org.dwes.servicio.ServicioPlantaImpl;
 import org.dwes.repositorio.PlantaDAOImpl;
@@ -13,10 +14,10 @@ public class PlantasMenu {
     boolean on = true;
     Scanner sc = new Scanner(System.in);
 
-    private ServicioPlantaImpl servicioPlanta;
+    private final Controlador controlador;
 
     public PlantasMenu() {
-        servicioPlanta = ServicioPlantaImpl.getServicioPlanta();
+        controlador = Controlador.getControlador();
     }
 
     /**
@@ -51,7 +52,7 @@ public class PlantasMenu {
 
                             Planta planta = new Planta(codigo,nombreComun,nombreCientifico);
 
-                            if (servicioPlanta.save(planta)){
+                            if (controlador.getServicioPlanta().save(planta)){
                                 spacer();
                                 System.out.println("Planta registrada correctamente");
                                 guardado = true;
@@ -102,7 +103,7 @@ public class PlantasMenu {
      * Si no hay ninguna mostrara un mensaje diciendolo.
      */
     public void listadoPlantas(){
-        List<Planta> plantas = servicioPlanta.listarPlantas();
+        List<Planta> plantas = controlador.getServicioPlanta().listarPlantas();
 
         if (plantas.isEmpty()){
             System.out.println("No hay plantas registradas en el sistema.");
