@@ -11,6 +11,7 @@ public class ServicioPersonaImpl implements ServicioPersona{
 
     private static ServicioPersonaImpl servicioPersona;
     private PersonaDAOImpl personaDAO;
+    private final String namePattern = "[A-Za-z]";
     private final String emailPattern = "^[\\w]+@[A-Za-z0-9-]+\\.(com|org|es)$";
 
     private ServicioPersonaImpl() {
@@ -42,6 +43,9 @@ public class ServicioPersonaImpl implements ServicioPersona{
 
     @Override
     public boolean save(Persona persona) {
+        if (!persona.getNombre().matches(namePattern)){
+            return false;
+        }
         Persona emailCheck = personaDAO.findByEmail(persona.getEmail());
         if (!persona.getEmail().matches(emailPattern) && !persona.getEmail().equals(emailCheck.getEmail())){
             return false;
