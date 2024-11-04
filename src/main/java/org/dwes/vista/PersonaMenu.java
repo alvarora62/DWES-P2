@@ -1,5 +1,6 @@
 package org.dwes.vista;
 
+import org.dwes.controlador.Controlador;
 import org.dwes.modelo.Credenciales;
 import org.dwes.modelo.Persona;
 import org.dwes.servicio.ServicioCredencialesImpl;
@@ -13,12 +14,10 @@ public class PersonaMenu {
     boolean on = true;
     Scanner sc = new Scanner(System.in);
 
-    private ServicioPersonaImpl servicioPersona;
-    private ServicioCredencialesImpl servicioCredenciales;
+    private final Controlador controlador;
 
     public PersonaMenu() {
-        servicioPersona = ServicioPersonaImpl.getServicioPersona();
-        servicioCredenciales = ServicioCredencialesImpl.getServicioCredenciales();
+        this.controlador = Controlador.getControlador();
     }
 
     public void menuPersona(){
@@ -48,7 +47,7 @@ public class PersonaMenu {
 
                             persona.setNombre(nombre);
                             persona.setEmail(email);
-                            if (servicioPersona.save(persona)){
+                            if (controlador.getServicioPersona().save(persona)){
                                 guardado = true;
                             } else {
                                 System.err.println("Email con formato invalido o repetido.");
@@ -68,8 +67,8 @@ public class PersonaMenu {
 
                             credenciales.setUsuario(usuario);
                             credenciales.setPassword(password);
-                            credenciales.setFk_persona(servicioPersona.findByEmail(persona.getEmail()));
-                            if (servicioCredenciales.save(credenciales)){
+                            credenciales.setFk_persona(controlador.getServicioPersona().findByEmail(persona.getEmail()));
+                            if (controlador.getServicioCredenciales().save(credenciales)){
                                 guardado = true;
                             } else {
                                 System.err.println("Usuario ya existe.");

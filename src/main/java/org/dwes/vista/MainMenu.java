@@ -1,5 +1,6 @@
 package org.dwes.vista;
 
+import org.dwes.controlador.Controlador;
 import org.dwes.servicio.ServicioCredencialesImpl;
 
 import java.util.InputMismatchException;
@@ -9,7 +10,7 @@ public class MainMenu {
 
     private final PlantasMenu plantasMenu;
     private final PersonaMenu personaMenu;
-    private final ServicioCredencialesImpl servicioCredenciales;
+    private final Controlador controlador;
 
     private String username;
     private String password;
@@ -19,7 +20,7 @@ public class MainMenu {
     public MainMenu() {
         plantasMenu = new PlantasMenu();
         personaMenu = new PersonaMenu();
-        servicioCredenciales = ServicioCredencialesImpl.getServicioCredenciales();
+        this.controlador = Controlador.getControlador();
     }
 
     /**
@@ -50,7 +51,7 @@ public class MainMenu {
                         System.out.println("\tContraseña:");
                         password = sc.next();
 
-                        nivel = servicioCredenciales.login(username,password);
+                        nivel = controlador.getServicioCredenciales().login(username,password);
 
                         switch (nivel) {
                             case -1:
