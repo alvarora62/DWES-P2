@@ -71,7 +71,7 @@ public class PersonaMenu {
                             if (controlador.getServicioCredenciales().save(credenciales)){
                                 guardado = true;
                             } else {
-                                System.err.println("Usuario ya existe.");
+                                System.err.println("Usuario ya existe. O contraseña no válida.");
                             }
                         }while (!guardado);
                         spacer();
