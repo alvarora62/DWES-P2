@@ -41,4 +41,8 @@ public class Planta {
         this.nombreComun = nombreComun;
     }
 
+    @Override
+    public String toString() {
+        return "Codigo: " + codigo + "\tNombre Comun: " + nombreComun + "\tNombre Cientifico: " + nombreCientifico;
+    }
 }
