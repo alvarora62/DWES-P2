@@ -1,8 +1,6 @@
 package org.dwes.controlador;
 
-import org.dwes.servicio.ServicioCredencialesImpl;
-import org.dwes.servicio.ServicioPersonaImpl;
-import org.dwes.servicio.ServicioPlantaImpl;
+import org.dwes.servicio.*;
 
 public class Controlador {
 
@@ -11,11 +9,15 @@ public class Controlador {
     private final ServicioCredencialesImpl servicioCredenciales;
     private final ServicioPersonaImpl servicioPersona;
     private final ServicioPlantaImpl servicioPlanta;
+    private final ServicioEjemplarImpl servicioEjemplar;
+    private final ServicioMensajeImpl servicioMensaje;
 
     private Controlador() {
         this.servicioCredenciales = ServicioCredencialesImpl.getServicioCredenciales();
         this.servicioPersona = ServicioPersonaImpl.getServicioPersona();
         this.servicioPlanta = ServicioPlantaImpl.getServicioPlanta();
+        this.servicioEjemplar = ServicioEjemplarImpl.getServicioEjemplar();
+        this.servicioMensaje = ServicioMensajeImpl.getServicioMensaje();
     }
 
     public static Controlador getControlador() {
@@ -35,5 +37,13 @@ public class Controlador {
 
     public ServicioPlantaImpl getServicioPlanta() {
         return servicioPlanta;
+    }
+
+    public ServicioEjemplarImpl getServicioEjemplar() {
+        return servicioEjemplar;
+    }
+
+    public ServicioMensajeImpl getServicioMensaje() {
+        return servicioMensaje;
     }
 }
