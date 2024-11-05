@@ -5,18 +5,14 @@ public class Ejemplar {
     private String nombre;
     private Planta planta;
 
-    public Ejemplar(Long id, Planta planta) {
+    public Ejemplar(Long id, String nombre, Planta planta) {
         this.id = id;
+        this.nombre = nombre;
         this.planta = planta;
-        this.nombre = generateNombre();
     }
 
     public Ejemplar() {
 
-    }
-
-    private String generateNombre() {
-        return planta.getCodigo() + "_" + id;
     }
 
     public Long getId() {
