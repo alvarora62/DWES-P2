@@ -10,6 +10,7 @@ public class MainMenu {
 
     private final PlantasMenu plantasMenu;
     private final PersonaMenu personaMenu;
+    private final EjemplaresMenu ejemplaresMenu;
     private final Controlador controlador;
 
     private String username;
@@ -20,6 +21,7 @@ public class MainMenu {
     public MainMenu() {
         plantasMenu = new PlantasMenu();
         personaMenu = new PersonaMenu();
+        ejemplaresMenu = new EjemplaresMenu();
         this.controlador = Controlador.getControlador();
     }
 
@@ -92,7 +94,7 @@ public class MainMenu {
     public void menuPrincipalPersonal(){
         do {
             System.out.println("\t\t\t**Sistema Gestor del Viviero** Usuario Actual: " + username);
-            System.out.println("\t\t\t1 - Gestión ejemplares (NO IMPLEMENTADO)");
+            System.out.println("\t\t\t1 - Gestión ejemplares");
             System.out.println("\t\t\t9 - Cerrar Sesión");
 
             try{
@@ -101,7 +103,7 @@ public class MainMenu {
                 switch (answer) {
                     case 1:
                         spacer();
-                        // Gestion Ejemplares
+                        ejemplaresMenu.menu();
                         break;
                     case 9:
                         spacer();
@@ -142,7 +144,7 @@ public class MainMenu {
                         break;
                     case 2:
                         spacer();
-                        // gestion ejemplares
+                        ejemplaresMenu.menu();
                         break;
                     case 3:
                         spacer();

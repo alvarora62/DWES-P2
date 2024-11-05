@@ -27,7 +27,7 @@ public class PlantaDAOImpl implements PlantaDAO {
     @Override
     public List<Planta> findAll() {
         List<Planta> plantas = new ArrayList<>();
-        String sql = "SELECT * FROM planta";
+        String sql = "SELECT * FROM planta ORDER BY nombreComun";
 
         try {
             preparedStatement = connection.prepareStatement(sql);
