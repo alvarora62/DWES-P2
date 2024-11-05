@@ -127,13 +127,14 @@ public class EjemplarDAOImpl implements EjemplarDAO{
      */
     @Override
     public boolean update(Ejemplar ejemplar) {
-        String sql = "UPDATE ejemplar SET id = ?, nombre = ? WHERE fk_planta = ?";
+        String sql = "UPDATE ejemplar SET id = ?, nombre = ?, fk_planta = ? WHERE id = ?";
 
         try {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1, ejemplar.getId());
             preparedStatement.setString(2, ejemplar.getNombre());
             preparedStatement.setString(3, ejemplar.getPlanta().getCodigo());
+            preparedStatement.setLong(4,ejemplar.getId());
             preparedStatement.executeUpdate();
 
             return true;
