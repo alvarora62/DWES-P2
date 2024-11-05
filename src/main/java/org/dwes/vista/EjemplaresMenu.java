@@ -2,6 +2,7 @@ package org.dwes.vista;
 
 import org.dwes.controlador.Controlador;
 import org.dwes.modelo.Ejemplar;
+import org.dwes.modelo.Mensaje;
 import org.dwes.modelo.Planta;
 
 import java.util.InputMismatchException;
@@ -40,14 +41,27 @@ public class EjemplaresMenu {
                         System.out.println("Registro de un nuevo ejemplar.\n");
                         plantasMenu.listadoPlantas();
 
-                        System.out.println("¿De qué tipo de planta es el ejemplar nuevo?");
-                        String fk_planta = sc.next().toUpperCase();
-                        Planta planta = controlador.getServicioPlanta().findByCodigo(fk_planta);
+                        boolean repetir = true;
+                        Planta planta;
+
+                        do {
+                            System.out.println("¿De qué tipo de planta es el ejemplar nuevo?");
+                            String fk_planta = sc.next().toUpperCase();
+                            planta = controlador.getServicioPlanta().findByCodigo(fk_planta);
+                            if (planta != null){
+                                repetir = false;
+                            }
+                        }while (repetir);
 
                         Ejemplar ejemplar = new Ejemplar();
                         ejemplar.setPlanta(planta);
-                        controlador.getServicioEjemplar().save(ejemplar);
+                        if (controlador.getServicioEjemplar().save(ejemplar)){
+                            Mensaje mensaje = new Mensaje();
+                            mensaje.setPersona(controlador.getServicioPersona().findById(1L));
+                            controlador.getServicioMensaje().mensajeInicial(mensaje);
+                        }
 
+                        System.out.println("Exito");
                         break;
                     case 2:
                         spacer();
