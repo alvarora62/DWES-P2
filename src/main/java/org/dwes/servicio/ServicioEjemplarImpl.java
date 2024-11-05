@@ -43,6 +43,7 @@ public class ServicioEjemplarImpl implements ServicioEjemplar{
 
         List<Ejemplar> ejemplars = ejemplarDAO.findAll();
         Ejemplar e = ejemplars.get(ejemplars.size() - 1);
+        ejemplar.setId(e.getId());
         ejemplar.setNombre(e.getPlanta().getCodigo() + "-" + e.getId());
 
         return ejemplarDAO.update(ejemplar);
