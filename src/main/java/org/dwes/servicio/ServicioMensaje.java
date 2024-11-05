@@ -12,4 +12,5 @@ public interface ServicioMensaje {
     List<Mensaje> findByEjemplar(Long id);
     List<Mensaje> findBetweenDateTime(LocalDateTime firstLocalDateTime, LocalDateTime secondLocalDateTime);
     boolean save(Mensaje mensaje);
+    boolean mensajeInicial(Mensaje mensaje);
 }
