@@ -1,12 +1,11 @@
-package org.dwes.repositorio;
+package org.dwes.servicio;
 
 import org.dwes.modelo.Mensaje;
-import org.dwes.modelo.Persona;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-public interface MensajeDAO {
+public interface ServicioMensaje {
 
     List<Mensaje> findAll();
     List<Mensaje> findByPersona(Long id);
