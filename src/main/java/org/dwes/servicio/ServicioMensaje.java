@@ -9,7 +9,7 @@ public interface ServicioMensaje {
 
     List<Mensaje> findAll();
     List<Mensaje> findByPersona(Long id);
-    List<Mensaje> findByPlanta(Long id);
+    List<Mensaje> findByEjemplar(Long id);
     List<Mensaje> findBetweenDateTime(LocalDateTime firstLocalDateTime, LocalDateTime secondLocalDateTime);
     boolean save(Mensaje mensaje);
 }

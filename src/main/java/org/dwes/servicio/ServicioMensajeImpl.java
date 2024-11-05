@@ -36,8 +36,8 @@ public class ServicioMensajeImpl implements ServicioMensaje{
     }
 
     @Override
-    public List<Mensaje> findByPlanta(Long id) {
-        return mensajeDAO.findByPlanta(id);
+    public List<Mensaje> findByEjemplar(Long id) {
+        return mensajeDAO.findByEjemplar(id);
     }
 
     @Override
