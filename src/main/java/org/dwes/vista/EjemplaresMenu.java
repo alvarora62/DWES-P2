@@ -2,6 +2,7 @@ package org.dwes.vista;
 
 import org.dwes.controlador.Controlador;
 import org.dwes.modelo.Ejemplar;
+import org.dwes.modelo.Planta;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -40,9 +41,13 @@ public class EjemplaresMenu {
                         plantasMenu.listadoPlantas();
 
                         System.out.println("¿De qué tipo de planta es el ejemplar nuevo?");
-                        String fk_planta = sc.next();
+                        String fk_planta = sc.next().toUpperCase();
+                        Planta planta = controlador.getServicioPlanta().findByCodigo(fk_planta);
 
-                        controlador.getServicioEjemplar().save(new Ejemplar());
+                        Ejemplar ejemplar = new Ejemplar();
+                        ejemplar.setPlanta(planta);
+                        controlador.getServicioEjemplar().save(ejemplar);
+
                         break;
                     case 2:
                         spacer();

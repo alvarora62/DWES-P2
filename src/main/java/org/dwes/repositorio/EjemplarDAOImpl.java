@@ -118,4 +118,29 @@ public class EjemplarDAOImpl implements EjemplarDAO{
             return false;
         }
     }
+
+    /**
+     * Actualiza un ejemplar existente en la base de datos
+     *
+     * @param ejemplar la planta para actualizar
+     * @return devuelve true si la operacion se hace y false si algo falla
+     */
+    @Override
+    public boolean update(Ejemplar ejemplar) {
+        String sql = "UPDATE ejemplar SET id = ?, nombre = ? WHERE fk_planta = ?";
+
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setLong(1, ejemplar.getId());
+            preparedStatement.setString(2, ejemplar.getNombre());
+            preparedStatement.setString(3, ejemplar.getPlanta().getCodigo());
+            preparedStatement.executeUpdate();
+
+            return true;
+
+        } catch (SQLException e) {
+            System.err.println("Error actualizando el ejemplar --> " + e.getMessage());
+            return false;
+        }
+    }
 }
