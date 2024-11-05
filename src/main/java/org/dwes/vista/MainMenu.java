@@ -103,7 +103,7 @@ public class MainMenu {
                 switch (answer) {
                     case 1:
                         spacer();
-                        ejemplaresMenu.menu();
+                        ejemplaresMenu.menuEjemplaresUser();
                         break;
                     case 9:
                         spacer();
@@ -144,7 +144,7 @@ public class MainMenu {
                         break;
                     case 2:
                         spacer();
-                        ejemplaresMenu.menu();
+                        ejemplaresMenu.menuEjemplaresUser();
                         break;
                     case 3:
                         spacer();
