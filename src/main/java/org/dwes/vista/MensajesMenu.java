@@ -1,8 +1,6 @@
 package org.dwes.vista;
 
 import org.dwes.controlador.Controlador;
-import org.dwes.modelo.Ejemplar;
-import org.dwes.modelo.Planta;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -23,7 +21,7 @@ public class MensajesMenu {
      */
     public void menuEjemplaresUser(){
         do {
-            System.out.println("\t\t\t**Sistema Gestor del Viviero**");
+            System.out.println("\t\t\t**Sistema Gestor del Viviero** [Usuario activo: " + MainMenu.username + "]");
             System.out.println("\t\t\t1 - Resgistrar ejemplar (NO IMPLEMENTADO)");
             System.out.println("\t\t\t2 - Listar ejemplares por Planta (NO IMPLEMENTADO)");
             System.out.println("\t\t\t3 - Ver mensajes de seguimiento (NO IMPLEMENTADO)");
