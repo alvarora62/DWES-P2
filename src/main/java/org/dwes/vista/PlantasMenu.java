@@ -69,9 +69,9 @@ public class PlantasMenu {
                         spacer();
                         estado = false;
 
-                        System.out.println("Actualizar una planta existente.");
-                        System.out.println("");
+                        System.out.println("Actualizar una planta existente.\n");
                         String codigo;
+                        listadoPlantas();
 
                         do {
                             System.out.println("¿Qué planta quieres actualizar?");
