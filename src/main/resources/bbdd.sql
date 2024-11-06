@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-11-2024 a las 10:33:42
+-- Tiempo de generación: 06-11-2024 a las 20:49:14
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -50,18 +50,6 @@ CREATE TABLE `ejemplar` (
   `fk_planta` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_general_ci;
 
---
--- Volcado de datos para la tabla `ejemplar`
---
-
-INSERT INTO `ejemplar` (`id`, `nombre`, `fk_planta`) VALUES
-(1, NULL, 'A'),
-(2, NULL, 'A'),
-(3, NULL, 'A'),
-(4, NULL, 'A'),
-(5, NULL, 'A'),
-(6, 'A-6', 'A');
-
 -- --------------------------------------------------------
 
 --
@@ -102,13 +90,6 @@ CREATE TABLE `planta` (
   `nombreComun` varchar(50) NOT NULL,
   `nombreCientifico` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_general_ci;
-
---
--- Volcado de datos para la tabla `planta`
---
-
-INSERT INTO `planta` (`codigo`, `nombreComun`, `nombreCientifico`) VALUES
-('A', 'a', 'a');
 
 --
 -- Índices para tablas volcadas
@@ -154,10 +135,28 @@ ALTER TABLE `planta`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `credenciales`
+--
+ALTER TABLE `credenciales`
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `ejemplar`
 --
 ALTER TABLE `ejemplar`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `mensaje`
+--
+ALTER TABLE `mensaje`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `persona`
+--
+ALTER TABLE `persona`
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas
