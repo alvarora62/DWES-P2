@@ -1,7 +1,6 @@
 package org.dwes.servicio;
 
 import org.dwes.modelo.Ejemplar;
-import org.dwes.modelo.Planta;
 import org.dwes.repositorio.EjemplarDAOImpl;
 import org.dwes.util.Connexion;
 
@@ -28,6 +27,11 @@ public class ServicioEjemplarImpl implements ServicioEjemplar{
     @Override
     public List<Ejemplar> findAll() {
         return ejemplarDAO.findAll();
+    }
+
+    @Override
+    public Ejemplar findById(Long id){
+        return ejemplarDAO.findById(id);
     }
 
     @Override
