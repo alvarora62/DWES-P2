@@ -30,48 +30,8 @@ public class PersonaMenu {
                 switch (answer) {
                     case 1:
                         spacer();
-                        Persona persona = new Persona();
-                        Credenciales credenciales = new Credenciales();
-                        System.out.println("Alta de un nuevo empleado. ");
-                        boolean guardado = false;
-
-                        // Creacion del objeto persona
-                        do {
-                            System.out.print("\tDatos personales del usuario.");
-                            System.out.println("\tIntroduce el nombre del nuevo empleado:");
-                            String nombre = sc.next();
-                            System.out.println("\tIntroduce el email del nuevo empleado: \nPatron que ha seguir x@x.(com/es/org).\nEl email no puede existir ya en el sistema.");
-                            String email = sc.next();
-
-                            persona.setNombre(nombre);
-                            persona.setEmail(email);
-                            if (controlador.getServicioPersona().save(persona)){
-                                guardado = true;
-                            } else {
-                                System.err.println("Email con formato invalido o repetido.");
-                            }
-                        }while (!guardado);
-                        guardado = false;
-                        spacer();
-
-
-                        // Creacion del objeto credenciales
-                        do{
-                            System.out.println("\tDatos de acceso para el usuario.");
-                            System.out.println("\tUsuaio del empleado: \nDebe de ser único.)");
-                            String usuario = sc.next();
-                            System.out.println("\tContraseña del empleado: \nAl menos 8 caracteres.\nIncluir como mínimo una mayuscula, un símbolo y un número.");
-                            String password = sc.next();
-
-                            credenciales.setUsuario(usuario);
-                            credenciales.setPassword(password);
-                            credenciales.setFk_persona(controlador.getServicioPersona().findByEmail(persona.getEmail()));
-                            if (controlador.getServicioCredenciales().save(credenciales)){
-                                guardado = true;
-                            } else {
-                                System.err.println("Usuario ya existe. O contraseña no válida.");
-                            }
-                        }while (!guardado);
+                        Persona persona = savePersona();
+                        saveCredenciales(persona);
                         spacer();
 
                         System.out.println("Empleado y credenciales de acceso creadas con exito.");
@@ -91,6 +51,89 @@ public class PersonaMenu {
                 sc.next();
             }
         } while (on);
+    }
+
+    private Persona savePersona() {
+        Persona persona = new Persona();
+        System.out.println("Alta de un nuevo empleado. ");
+        System.out.print("\n\nDatos personales del usuario.");
+
+        // Validacion nombre
+        String name;
+        do {
+            System.out.println("\nIntroduce el nombre del nuevo empleado:");
+            name = sc.next();
+            if (controlador.getServicioPersona().checkName(name))
+                System.err.println("Error en el formato del nombre");
+        }while (controlador.getServicioPersona().checkName(name));
+
+        // Validacion email
+        String email;
+        do {
+            System.out.println("\nIntroduce el email del nuevo empleado: \n Se tendra en cuenta el siguiente patron que ha seguir x@x.(com/es/org). Además, el email no puede existir ya en el sistema.\n");
+            email = sc.next();
+            if (controlador.getServicioPersona().checkEmail(email))
+                System.err.println("Error en el formato del email o email ya existente en el sistema.");
+        } while (controlador.getServicioPersona().checkEmail(email));
+
+        // Guardado de la persona
+        persona.setNombre(name);
+        persona.setEmail(email);
+        if (!controlador.getServicioPersona().save(persona)){
+            System.err.println("Error guardando la persona.");
+        }
+
+        return persona;
+    }
+
+    private void saveCredenciales(Persona persona) {
+        Credenciales credenciales = new Credenciales();
+        String username;
+        String passwd;
+
+        System.out.println("\n\nCreacion de datos de acceso para el usuario nuevo.");
+
+        // Check for unique username
+        do {
+            System.out.println("Ingrese un nombre de usuario único:");
+            username = sc.next();
+
+            // Use controlador's chechUsername method to check for availability
+            if (!controlador.getServicioCredenciales().chechUsername(username)) {
+                System.err.println("El nombre de usuario ya está en uso. Intente con otro.");
+            }
+        } while (!controlador.getServicioCredenciales().chechUsername(username));
+
+        // Check for valid password format
+        do {
+            System.out.println("Ingrese una contraseña para el empleado (mínimo 8 caracteres, al menos una mayúscula, un símbolo y un número):");
+            passwd = sc.next();
+
+            // Validate the password against the defined pattern in ServicioCredenciales
+            if (!controlador.getServicioCredenciales().checkPassword(passwd)) {
+                System.err.println("Contraseña no válida. Intente nuevamente.");
+            }
+        } while (!controlador.getServicioCredenciales().checkPassword(passwd));
+
+        // Set credentials attributes and link to the Persona object
+        credenciales.setUsuario(username);
+        credenciales.setPassword(passwd);
+
+        // Retrieve the Persona instance by email for foreign key linking
+        Persona personaData = controlador.getServicioPersona().findByEmail(persona.getEmail());
+        if (personaData != null) {
+            credenciales.setFk_persona(personaData);
+        } else {
+            System.err.println("No se pudo encontrar la persona para asignar las credenciales.");
+            return;
+        }
+
+        // Guardar credenciales
+        if (!controlador.getServicioCredenciales().save(credenciales)) {
+            System.err.println("Error al guardar las credenciales.");
+        } else {
+            System.out.println("Credenciales guardadas con éxito para el usuario: " + username);
+        }
     }
 
     private void spacer(){
