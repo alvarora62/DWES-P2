@@ -9,8 +9,7 @@ import java.sql.Connection;
 public class ServicioCredencialesImpl implements ServicioCredenciales{
 
     private static ServicioCredencialesImpl servicioCredenciales;
-    private CredencialesDAOImpl credencialesDAO;
-    private final String passwdPattern = "^(?=.*[A-Z])(?=.*\\\\d)(?=.*[!@#$%^&*(),.?\\\":{}|<>])[A-Za-z\\\\d!@#$%^&*(),.?\\\":{}|<>]{8,}$";
+    private final CredencialesDAOImpl credencialesDAO;
 
     private ServicioCredencialesImpl() {
         Connection connexion = Connexion.getConnexion().getConexion();
@@ -31,15 +30,17 @@ public class ServicioCredencialesImpl implements ServicioCredenciales{
 
     @Override
     public boolean save(Credenciales credenciales) {
-        Credenciales id = credencialesDAO.findByUsuario(credenciales.getUsuario());
-        if (id.getId() != null){
-            return false;
-        }
-
-        if (!credenciales.getPassword().matches(passwdPattern)){
-            return false;
-        }
         return credencialesDAO.save(credenciales);
+    }
+
+    public boolean chechUsername(String username){
+        Credenciales checkUsername = credencialesDAO.findByUsuario(username);
+        return checkUsername == null || checkUsername.getId() == null;
+    }
+
+    public boolean checkPassword(String password){
+        String passwdPattern = "^\\S\\D+[0-9]+[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?~]+$";
+        return (password.matches(passwdPattern) && password.length() == 8);
     }
 
     /**
