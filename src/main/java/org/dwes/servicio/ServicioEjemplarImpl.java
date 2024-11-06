@@ -11,7 +11,7 @@ import java.util.List;
 public class ServicioEjemplarImpl implements ServicioEjemplar{
 
     private static ServicioEjemplarImpl servicioEjemplar;
-    private EjemplarDAOImpl ejemplarDAO;
+    private final EjemplarDAOImpl ejemplarDAO;
 
     private ServicioEjemplarImpl() {
         Connection connexion = Connexion.getConnexion().getConexion();
