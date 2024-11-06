@@ -14,7 +14,6 @@ public class MainMenu {
     private final Controlador controlador;
 
     static String username;
-    private String password;
     static Long activeUser;
     boolean on = true;
     Scanner sc = new Scanner(System.in);
@@ -30,7 +29,9 @@ public class MainMenu {
      * Menu presentado al perfil de invitado (al abrir la aplicación).
      */
     public void menuPrincipal(){
-        controlador.getServicioPersona().checkForAdmin();
+        Credenciales credenciales = controlador.getServicioPersona().checkForAdmin();
+        if (credenciales != null)
+            controlador.getServicioCredenciales().save(credenciales);
 
         do {
             System.out.println("\t\t\t**Sistema Gestor del Viviero**");
@@ -54,9 +55,9 @@ public class MainMenu {
                         System.out.println("\tNombre de usuario");
                         username = sc.next();
                         System.out.println("\tContraseña:");
-                        password = sc.next();
+                        String password = sc.next();
 
-                        nivel = controlador.getServicioCredenciales().login(username,password);
+                        nivel = controlador.getServicioCredenciales().login(username, password);
 
                         switch (nivel) {
                             case -1:
@@ -64,13 +65,14 @@ public class MainMenu {
                                 break;
                             case 0:
                                 menuPrincipalPersonal();
-                                Credenciales credenciales = controlador.getServicioCredenciales().findByUsername(username);
-                                activeUser = credenciales.getId();
+                                Credenciales login = controlador.getServicioCredenciales().findByUsername(username);
+                                activeUser = login.getId();
                                 password = "";
                                 on = true;
                                 break;
                             case 1:
                                 menuPrincipalAdmin();
+                                activeUser = 0L;
                                 on = true;
                                 break;
                         }
@@ -99,7 +101,7 @@ public class MainMenu {
      */
     public void menuPrincipalPersonal(){
         do {
-            System.out.println("\t\t\t**Sistema Gestor del Viviero** Usuario Actual: " + username);
+            System.out.println("\t\t\t**Sistema Gestor del Viviero** [Usuario Actual: " + username + "]");
             System.out.println("\t\t\t1 - Gestión ejemplares");
             System.out.println("\t\t\t9 - Cerrar Sesión");
 
@@ -134,7 +136,7 @@ public class MainMenu {
      */
     public void menuPrincipalAdmin(){
         do {
-            System.out.println("\t\t\t**Sistema Gestor del Viviero** Usuario Actual " + username);
+            System.out.println("\t\t\t**Sistema Gestor del Viviero** [Usuario Actual " + username + "]");
             System.out.println("\t\t\t1 - Gestion de plantas");
             System.out.println("\t\t\t2 - Gestión ejemplares");
             System.out.println("\t\t\t3 - Gestion de empleados");
