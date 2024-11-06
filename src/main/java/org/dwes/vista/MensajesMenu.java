@@ -3,10 +3,12 @@ package org.dwes.vista;
 import org.dwes.controlador.Controlador;
 import org.dwes.modelo.Ejemplar;
 import org.dwes.modelo.Mensaje;
+import org.dwes.modelo.Persona;
 
 import java.time.LocalDateTime;
 import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 import static org.dwes.vista.MainMenu.activeUser_id;
@@ -31,7 +33,8 @@ public class MensajesMenu {
             System.out.println("\t\t\t**Sistema Gestor del Viviero** [Usuario activo: " + activeUser_username + "]");
             System.out.println("\t\t\t1 - Hacer anotacion a un ejemplar");
             System.out.println("\t\t\t2 - Listar mensajes (NO IMPLEMENTADO)");
-            // x persona o x fechas
+            System.out.println("\t\t\t2 - Listar mensajes por persona (NO IMPLEMENTADO)");
+            System.out.println("\t\t\t2 - Listar mensajes por rango de fechas(NO IMPLEMENTADO)");
             System.out.println("\t\t\t9 - Cerrar Sesion");
 
             try{
@@ -44,10 +47,11 @@ public class MensajesMenu {
                         break;
                     case 2:
                         spacer();
-
+                        findAll();
                         break;
                     case 3:
                         spacer();
+                        findAllByPersona();
                         break;
                     case 9:
                         spacer();
@@ -107,6 +111,51 @@ public class MensajesMenu {
             }
         } else {
             System.err.println("Todavia no hay ejemplares en el sistema.");
+        }
+    }
+
+    private void findAll() {
+        List<Mensaje> mensajes = controlador.getServicioMensaje().findAll();
+
+        if (!mensajes.isEmpty()){
+            for (Mensaje mensaje : mensajes){
+                System.out.println(mensaje.toString());
+            }
+        } else {
+            System.err.println("No hay ningun mensaje en el sistema");
+        }
+    }
+
+    private void findAllByPersona() {
+        Long id;
+        Persona persona;
+
+        List<Persona> personas = controlador.getServicioPersona().findAll();
+        if (!personas.isEmpty()){
+            for (Persona persona1 : personas){
+                System.out.println("ID: " + persona1.getId() + " | Nombre: " + persona1.getEmail());
+            }
+
+            do {
+                System.out.println("¿De que persona te gustaria ver los mensajes?");
+                id = sc.nextLong();
+
+                persona = controlador.getServicioPersona().findById(id);
+                if (!Objects.equals(persona.getId(), id)){
+                    System.err.println("Esa persona no existe.");
+                }
+            } while (!Objects.equals(persona.getId(), id));
+
+            List<Mensaje> mensajes = controlador.getServicioMensaje().findByPersona(id);
+            if (!mensajes.isEmpty()){
+                for (Mensaje mensaje : mensajes){
+                    System.out.println("Mensaje: " + mensaje.getMensaje() + " | Fecha y Hora: " + mensaje.getFechaHora());
+                }
+            } else {
+                System.err.println("Esa persona no tiene ningun mensaje.");
+            }
+        } else {
+            System.err.println("No hay personas registradas en el sistema");
         }
     }
 
