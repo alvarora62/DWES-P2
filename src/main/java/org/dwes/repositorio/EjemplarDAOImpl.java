@@ -60,17 +60,17 @@ public class EjemplarDAOImpl implements EjemplarDAO{
     /**
      * Devuelve una lista de ejemplares de una planta específica.
      *
-     * @param id el ID de la planta a filtrar
+     * @param codigo el ID de la planta a filtrar
      * @return lista de objetos Ejemplar para la planta indicada
      */
     @Override
-    public List<Ejemplar> findByFkPlanta(Long id) {
+    public List<Ejemplar> findByFkPlanta(String codigo) {
         List<Ejemplar> ejemplares = new ArrayList<>();
         String sql = "SELECT * FROM ejemplar WHERE fk_planta = ?";
 
         try {
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setLong(1, id);
+            preparedStatement.setString(1, codigo);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
