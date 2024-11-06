@@ -52,4 +52,13 @@ public class ServicioPersonaImpl implements ServicioPersona{
         }
         return personaDAO.save(persona);
     }
+
+    @Override
+    public void checkForAdmin() {
+        if (personaDAO.findByEmail("admin@admin.com").getEmail() == null){
+            System.out.println("No existe un usuario admin en el sistema");
+            Persona admin = new Persona(0L,"admin","admin@admin.com");
+            personaDAO.save(admin);
+        }
+    }
 }
