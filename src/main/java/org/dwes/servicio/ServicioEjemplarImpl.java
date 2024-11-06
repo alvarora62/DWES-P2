@@ -1,8 +1,8 @@
 package org.dwes.servicio;
 
 import org.dwes.modelo.Ejemplar;
+import org.dwes.modelo.Planta;
 import org.dwes.repositorio.EjemplarDAOImpl;
-import org.dwes.repositorio.MensajeDAOImpl;
 import org.dwes.util.Connexion;
 
 import java.sql.Connection;
@@ -37,6 +37,20 @@ public class ServicioEjemplarImpl implements ServicioEjemplar{
 
     @Override
     public boolean save(Ejemplar ejemplar) {
-        return ejemplarDAO.save(ejemplar);
+        if (!ejemplarDAO.save(ejemplar)){
+            return false;
+        }
+
+        List<Ejemplar> ejemplars = ejemplarDAO.findAll();
+        Ejemplar e = ejemplars.get(ejemplars.size() - 1);
+        ejemplar.setId(e.getId());
+        ejemplar.setNombre(e.getPlanta().getCodigo() + "-" + e.getId());
+
+        return ejemplarDAO.update(ejemplar);
+    }
+
+    @Override
+    public boolean update(Ejemplar ejemplar) {
+        return ejemplarDAO.update(ejemplar);
     }
 }

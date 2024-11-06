@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-10-2024 a las 09:40:17
+-- Tiempo de generación: 06-11-2024 a las 10:33:42
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -46,9 +46,21 @@ CREATE TABLE `credenciales` (
 DROP TABLE IF EXISTS `ejemplar`;
 CREATE TABLE `ejemplar` (
   `id` int(50) NOT NULL,
-  `nombre` varchar(50) NOT NULL,
+  `nombre` varchar(50) DEFAULT NULL,
   `fk_planta` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_general_ci;
+
+--
+-- Volcado de datos para la tabla `ejemplar`
+--
+
+INSERT INTO `ejemplar` (`id`, `nombre`, `fk_planta`) VALUES
+(1, NULL, 'A'),
+(2, NULL, 'A'),
+(3, NULL, 'A'),
+(4, NULL, 'A'),
+(5, NULL, 'A'),
+(6, 'A-6', 'A');
 
 -- --------------------------------------------------------
 
@@ -92,6 +104,13 @@ CREATE TABLE `planta` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_general_ci;
 
 --
+-- Volcado de datos para la tabla `planta`
+--
+
+INSERT INTO `planta` (`codigo`, `nombreComun`, `nombreCientifico`) VALUES
+('A', 'a', 'a');
+
+--
 -- Índices para tablas volcadas
 --
 
@@ -129,6 +148,16 @@ ALTER TABLE `persona`
 --
 ALTER TABLE `planta`
   ADD PRIMARY KEY (`codigo`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `ejemplar`
+--
+ALTER TABLE `ejemplar`
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restricciones para tablas volcadas

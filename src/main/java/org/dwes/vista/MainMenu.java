@@ -1,7 +1,7 @@
 package org.dwes.vista;
 
 import org.dwes.controlador.Controlador;
-import org.dwes.servicio.ServicioCredencialesImpl;
+import org.dwes.modelo.Credenciales;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -13,8 +13,9 @@ public class MainMenu {
     private final EjemplaresMenu ejemplaresMenu;
     private final Controlador controlador;
 
-    private String username;
+    static String username;
     private String password;
+    static Long activeUser;
     boolean on = true;
     Scanner sc = new Scanner(System.in);
 
@@ -29,6 +30,8 @@ public class MainMenu {
      * Menu presentado al perfil de invitado (al abrir la aplicación).
      */
     public void menuPrincipal(){
+        controlador.getServicioPersona().checkForAdmin();
+
         do {
             System.out.println("\t\t\t**Sistema Gestor del Viviero**");
             System.out.println("\t\t\t1 - Ver plantas");
@@ -61,6 +64,9 @@ public class MainMenu {
                                 break;
                             case 0:
                                 menuPrincipalPersonal();
+                                Credenciales credenciales = controlador.getServicioCredenciales().findByUsername(username);
+                                activeUser = credenciales.getId();
+                                password = "";
                                 on = true;
                                 break;
                             case 1:
@@ -103,7 +109,7 @@ public class MainMenu {
                 switch (answer) {
                     case 1:
                         spacer();
-                        ejemplaresMenu.menu();
+                        ejemplaresMenu.menuEjemplaresUser();
                         break;
                     case 9:
                         spacer();
@@ -144,7 +150,7 @@ public class MainMenu {
                         break;
                     case 2:
                         spacer();
-                        ejemplaresMenu.menu();
+                        ejemplaresMenu.menuEjemplaresUser();
                         break;
                     case 3:
                         spacer();

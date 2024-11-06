@@ -9,4 +9,5 @@ public interface ServicioEjemplar {
     List<Ejemplar> findAll();
     List<Ejemplar> findByFkPlanta(Long id);
     boolean save(Ejemplar ejemplar);
+    boolean update(Ejemplar ejemplar);
 }

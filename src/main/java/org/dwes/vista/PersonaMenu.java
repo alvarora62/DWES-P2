@@ -3,8 +3,6 @@ package org.dwes.vista;
 import org.dwes.controlador.Controlador;
 import org.dwes.modelo.Credenciales;
 import org.dwes.modelo.Persona;
-import org.dwes.servicio.ServicioCredencialesImpl;
-import org.dwes.servicio.ServicioPersonaImpl;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -22,7 +20,7 @@ public class PersonaMenu {
 
     public void menuPersona(){
         do {
-            System.out.println("\t\t\t**Sistema Gestor del Viviero** (Gestión de Personal)");
+            System.out.println("\t\t\t**Sistema Gestor del Viviero** (Gestión de Personal) [Usuario activo: " + MainMenu.username + "]");
             System.out.println("\t\t\t1 - Alta de un empleado");
             System.out.println("\t\t\t9 - Atrás");
 

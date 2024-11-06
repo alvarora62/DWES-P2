@@ -10,4 +10,5 @@ public interface ServicioPersona {
     Persona findById(Long id);
     Persona findByEmail(String email);
     boolean save(Persona persona);
+    void checkForAdmin();
 }

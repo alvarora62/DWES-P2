@@ -36,8 +36,8 @@ public class ServicioMensajeImpl implements ServicioMensaje{
     }
 
     @Override
-    public List<Mensaje> findByPlanta(Long id) {
-        return mensajeDAO.findByPlanta(id);
+    public List<Mensaje> findByEjemplar(Long id) {
+        return mensajeDAO.findByEjemplar(id);
     }
 
     @Override
@@ -47,6 +47,14 @@ public class ServicioMensajeImpl implements ServicioMensaje{
 
     @Override
     public boolean save(Mensaje mensaje) {
+        return mensajeDAO.save(mensaje);
+    }
+
+    @Override
+    public boolean mensajeInicial(Mensaje mensaje) {
+        mensaje.setMensaje("Añadido el ejemplar " + mensaje.getEjemplar().getNombre() + " a la base de datos");
+        LocalDateTime localDateTime = LocalDateTime.now();
+        mensaje.setFechaHora(localDateTime);
         return mensajeDAO.save(mensaje);
     }
 }

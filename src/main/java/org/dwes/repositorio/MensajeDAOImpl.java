@@ -113,7 +113,7 @@ public class MensajeDAOImpl implements MensajeDAO {
      * @return lista de objetos Mensaje para la planta
      */
     @Override
-    public List<Mensaje> findByPlanta(Long id) {
+    public List<Mensaje> findByEjemplar(Long id) {
         List<Mensaje> mensajes = new ArrayList<>();
         String sql = "SELECT * FROM mensaje WHERE planta_id = ?";
 

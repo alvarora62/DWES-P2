@@ -2,8 +2,6 @@ package org.dwes.vista;
 
 import org.dwes.controlador.Controlador;
 import org.dwes.modelo.Planta;
-import org.dwes.servicio.ServicioPlantaImpl;
-import org.dwes.repositorio.PlantaDAOImpl;
 
 import java.util.InputMismatchException;
 import java.util.List;
@@ -26,7 +24,7 @@ public class PlantasMenu {
      */
     public void menuPlantas(){
         do {
-            System.out.println("\t\t\t**Sistema Gestor del Viviero** (Gestión de Personal)");
+            System.out.println("\t\t\t**Sistema Gestor del Viviero** (Gestión de Plantas) [Usuario activo: " + MainMenu.username + "]");
             System.out.println("\t\t\t1 - Registrar planta");
             System.out.println("\t\t\t2 - Listar plantas");
             System.out.println("\t\t\t3 - Modificar planta");

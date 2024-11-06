@@ -1,24 +1,19 @@
 package org.dwes.vista;
 
 import org.dwes.controlador.Controlador;
-import org.dwes.modelo.Ejemplar;
-import org.dwes.modelo.Mensaje;
-import org.dwes.modelo.Planta;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class EjemplaresMenu {
+public class MensajesMenu {
 
     boolean on = true;
     Scanner sc = new Scanner(System.in);
 
     private final Controlador controlador;
-    private final PlantasMenu plantasMenu;
 
-    public EjemplaresMenu() {
+    public MensajesMenu() {
         this.controlador = Controlador.getControlador();
-        this.plantasMenu = new PlantasMenu();
     }
 
     /**
@@ -26,7 +21,7 @@ public class EjemplaresMenu {
      */
     public void menuEjemplaresUser(){
         do {
-            System.out.println("\t\t\t**Sistema Gestor del Viviero**  [Usuario Activo: " + MainMenu.username + "]");
+            System.out.println("\t\t\t**Sistema Gestor del Viviero** [Usuario activo: " + MainMenu.username + "]");
             System.out.println("\t\t\t1 - Resgistrar ejemplar (NO IMPLEMENTADO)");
             System.out.println("\t\t\t2 - Listar ejemplares por Planta (NO IMPLEMENTADO)");
             System.out.println("\t\t\t3 - Ver mensajes de seguimiento (NO IMPLEMENTADO)");
@@ -38,38 +33,14 @@ public class EjemplaresMenu {
                 switch (answer) {
                     case 1:
                         spacer();
-                        System.out.println("Registro de un nuevo ejemplar.\n");
-                        plantasMenu.listadoPlantas();
 
-                        boolean repetir = true;
-                        Planta planta;
-
-                        do {
-                            System.out.println("¿De qué tipo de planta es el ejemplar nuevo?");
-                            String fk_planta = sc.next().toUpperCase();
-                            planta = controlador.getServicioPlanta().findByCodigo(fk_planta);
-                            if (planta != null){
-                                repetir = false;
-                            }
-                        }while (repetir);
-
-                        Ejemplar ejemplar = new Ejemplar();
-                        ejemplar.setPlanta(planta);
-                        if (controlador.getServicioEjemplar().save(ejemplar)){
-                            Mensaje mensaje = new Mensaje();
-                            mensaje.setPersona(controlador.getServicioPersona().findById(MainMenu.activeUser));
-                            controlador.getServicioMensaje().mensajeInicial(mensaje);
-                        }
-
-                        System.out.println("Exito");
                         break;
                     case 2:
                         spacer();
-                        controlador.getServicioEjemplar().findByFkPlanta(1L);
+
                         break;
                     case 3:
                         spacer();
-                        controlador.getServicioMensaje().findByEjemplar(1L);
                         break;
                     case 9:
                         spacer();
