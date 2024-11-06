@@ -25,6 +25,11 @@ public class ServicioCredencialesImpl implements ServicioCredenciales{
     }
 
     @Override
+    public Credenciales findByUsername(String username) {
+        return credencialesDAO.findByUsuario(username);
+    }
+
+    @Override
     public boolean save(Credenciales credenciales) {
         Credenciales id = credencialesDAO.findByUsuario(credenciales.getUsuario());
         if (id.getId() != null){
