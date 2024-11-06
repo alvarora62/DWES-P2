@@ -7,6 +7,8 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
+import static org.dwes.vista.MainMenu.activeUser_username;
+
 public class PlantasMenu {
 
     boolean on = true;
@@ -24,7 +26,7 @@ public class PlantasMenu {
      */
     public void menuPlantas(){
         do {
-            System.out.println("\t\t\t**Sistema Gestor del Viviero** (Gestión de Plantas) [Usuario activo: " + MainMenu.username + "]");
+            System.out.println("\t\t\t**Sistema Gestor del Viviero** (Gestión de Plantas) [Usuario activo: " + activeUser_username + "]");
             System.out.println("\t\t\t1 - Registrar planta");
             System.out.println("\t\t\t2 - Listar plantas");
             System.out.println("\t\t\t3 - Modificar planta");

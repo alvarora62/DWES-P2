@@ -7,6 +7,8 @@ import org.dwes.modelo.Persona;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import static org.dwes.vista.MainMenu.activeUser_username;
+
 public class PersonaMenu {
 
     boolean on = true;
@@ -20,7 +22,7 @@ public class PersonaMenu {
 
     public void menuPersona(){
         do {
-            System.out.println("\t\t\t**Sistema Gestor del Viviero** (Gestión de Personal) [Usuario activo: " + MainMenu.username + "]");
+            System.out.println("\t\t\t**Sistema Gestor del Viviero** (Gestión de Personal) [Usuario activo: " + activeUser_username + "]");
             System.out.println("\t\t\t1 - Alta de un empleado");
             System.out.println("\t\t\t9 - Atrás");
 
