@@ -11,7 +11,7 @@ import java.util.List;
 public class ServicioMensajeImpl implements ServicioMensaje{
 
     private static ServicioMensajeImpl servicioMensaje;
-    private MensajeDAOImpl mensajeDAO;
+    private final MensajeDAOImpl mensajeDAO;
 
     private ServicioMensajeImpl() {
         Connection connexion = Connexion.getConnexion().getConexion();
