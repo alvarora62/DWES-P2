@@ -26,7 +26,7 @@ public class EjemplaresMenu {
      */
     public void menuEjemplaresUser(){
         do {
-            System.out.println("\t\t\t**Sistema Gestor del Viviero**");
+            System.out.println("\t\t\t**Sistema Gestor del Viviero**  [Usuario Activo: " + MainMenu.username + "]");
             System.out.println("\t\t\t1 - Resgistrar ejemplar (NO IMPLEMENTADO)");
             System.out.println("\t\t\t2 - Listar ejemplares por Planta (NO IMPLEMENTADO)");
             System.out.println("\t\t\t3 - Ver mensajes de seguimiento (NO IMPLEMENTADO)");
@@ -57,7 +57,7 @@ public class EjemplaresMenu {
                         ejemplar.setPlanta(planta);
                         if (controlador.getServicioEjemplar().save(ejemplar)){
                             Mensaje mensaje = new Mensaje();
-                            mensaje.setPersona(controlador.getServicioPersona().findById(1L));
+                            mensaje.setPersona(controlador.getServicioPersona().findById(MainMenu.activeUser));
                             controlador.getServicioMensaje().mensajeInicial(mensaje);
                         }
 
