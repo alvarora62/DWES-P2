@@ -31,8 +31,8 @@ public class ServicioEjemplarImpl implements ServicioEjemplar{
     }
 
     @Override
-    public List<Ejemplar> findByFkPlanta(Long id) {
-        return ejemplarDAO.findByFkPlanta(id);
+    public List<Ejemplar> findByFkPlanta(String codigo) {
+        return ejemplarDAO.findByFkPlanta(codigo);
     }
 
     @Override

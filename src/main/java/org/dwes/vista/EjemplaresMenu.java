@@ -6,6 +6,7 @@ import org.dwes.modelo.Mensaje;
 import org.dwes.modelo.Planta;
 
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class EjemplaresMenu {
@@ -27,7 +28,7 @@ public class EjemplaresMenu {
     public void menuEjemplaresUser(){
         do {
             System.out.println("\t\t\t**Sistema Gestor del Viviero**  [Usuario Activo: " + MainMenu.username + "]");
-            System.out.println("\t\t\t1 - Resgistrar ejemplar (NO IMPLEMENTADO)");
+            System.out.println("\t\t\t1 - Resgistrar ejemplar");
             System.out.println("\t\t\t2 - Listar ejemplares por Planta (NO IMPLEMENTADO)");
             System.out.println("\t\t\t3 - Ver mensajes de seguimiento (NO IMPLEMENTADO)");
             System.out.println("\t\t\t9 - Cerrar Sesion");
@@ -61,11 +62,22 @@ public class EjemplaresMenu {
                             controlador.getServicioMensaje().mensajeInicial(mensaje);
                         }
 
-                        System.out.println("Exito");
+                        System.out.println("Ejemplar añadido con exito");
                         break;
                     case 2:
                         spacer();
-                        controlador.getServicioEjemplar().findByFkPlanta(1L);
+
+                        plantasMenu.listadoPlantas();
+
+                        System.out.println("¿De que tipo/tipos de plantas quieres buscar los ejemplares?");
+                        String codigo = sc.next();
+                        List<Ejemplar> ejemplarList = null;
+                        try{
+                            ejemplarList.addAll(controlador.getServicioEjemplar().findByFkPlanta(codigo));
+                        } catch (NullPointerException e){
+                            e.getMessage();
+                        }
+
                         break;
                     case 3:
                         spacer();

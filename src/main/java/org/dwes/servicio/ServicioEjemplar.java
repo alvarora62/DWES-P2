@@ -7,7 +7,7 @@ import java.util.List;
 public interface ServicioEjemplar {
 
     List<Ejemplar> findAll();
-    List<Ejemplar> findByFkPlanta(Long id);
+    List<Ejemplar> findByFkPlanta(String codigo);
     boolean save(Ejemplar ejemplar);
     boolean update(Ejemplar ejemplar);
 }

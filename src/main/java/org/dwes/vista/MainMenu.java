@@ -136,7 +136,7 @@ public class MainMenu {
         do {
             System.out.println("\t\t\t**Sistema Gestor del Viviero** Usuario Actual " + username);
             System.out.println("\t\t\t1 - Gestion de plantas");
-            System.out.println("\t\t\t2 - Gestión ejemplares (NO IMPLEMENTADO)");
+            System.out.println("\t\t\t2 - Gestión ejemplares");
             System.out.println("\t\t\t3 - Gestion de empleados");
             System.out.println("\t\t\t9 - Cerrar Sesion");
 
