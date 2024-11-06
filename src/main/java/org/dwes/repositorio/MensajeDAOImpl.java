@@ -38,7 +38,7 @@ public class MensajeDAOImpl implements MensajeDAO {
 
             while (resultSet.next()) {
                 Long id = resultSet.getLong("id");
-                LocalDateTime fecha = resultSet.getObject("fecha", LocalDateTime.class);
+                LocalDateTime fecha = resultSet.getObject("fechahora", LocalDateTime.class);
                 String mensaje = resultSet.getString("mensaje");
                 Long fk_personaMensaje = resultSet.getLong("fk_personaMensaje");
                 Persona persona = new Persona();
@@ -72,7 +72,7 @@ public class MensajeDAOImpl implements MensajeDAO {
     @Override
     public List<Mensaje> findByPersona(Long id) {
         List<Mensaje> mensajes = new ArrayList<>();
-        String sql = "SELECT * FROM mensaje WHERE persona_id = ?";
+        String sql = "SELECT * FROM mensaje WHERE fk_personaMensaje = ?";
 
         try {
             preparedStatement = connection.prepareStatement(sql);
@@ -81,7 +81,7 @@ public class MensajeDAOImpl implements MensajeDAO {
 
             while (resultSet.next()) {
                 Long id_mensaje = resultSet.getLong("id");
-                LocalDateTime fecha = resultSet.getObject("fecha", LocalDateTime.class);
+                LocalDateTime fecha = resultSet.getObject("fechahora", LocalDateTime.class);
                 String mensaje = resultSet.getString("mensaje");
                 Long fk_personaMensaje = resultSet.getLong("fk_personaMensaje");
                 Persona persona = new Persona();
@@ -115,7 +115,7 @@ public class MensajeDAOImpl implements MensajeDAO {
     @Override
     public List<Mensaje> findByEjemplar(Long id) {
         List<Mensaje> mensajes = new ArrayList<>();
-        String sql = "SELECT * FROM mensaje WHERE planta_id = ?";
+        String sql = "SELECT * FROM mensaje WHERE fk_ejemplarMensaje = ?";
 
         try {
             preparedStatement = connection.prepareStatement(sql);
@@ -124,7 +124,7 @@ public class MensajeDAOImpl implements MensajeDAO {
 
             while (resultSet.next()) {
                 Long id_mensaje = resultSet.getLong("id");
-                LocalDateTime fecha = resultSet.getObject("fecha", LocalDateTime.class);
+                LocalDateTime fecha = resultSet.getObject("fechahora", LocalDateTime.class);
                 String mensaje = resultSet.getString("mensaje");
                 Long fk_personaMensaje = resultSet.getLong("fk_personaMensaje");
                 Persona persona = new Persona();
@@ -159,7 +159,7 @@ public class MensajeDAOImpl implements MensajeDAO {
     @Override
     public List<Mensaje> findBetweenDateTime(LocalDateTime firstLocalDateTime, LocalDateTime secondLocalDateTime) {
         List<Mensaje> mensajes = new ArrayList<>();
-        String sql = "SELECT * FROM mensaje WHERE fecha BETWEEN ? AND ?";
+        String sql = "SELECT * FROM mensaje WHERE fechahora BETWEEN ? AND ?";
 
         try {
             preparedStatement = connection.prepareStatement(sql);
@@ -169,7 +169,7 @@ public class MensajeDAOImpl implements MensajeDAO {
 
             while (resultSet.next()) {
                 Long id = resultSet.getLong("id");
-                LocalDateTime fecha = resultSet.getObject("fecha", LocalDateTime.class);
+                LocalDateTime fecha = resultSet.getObject("fechahora", LocalDateTime.class);
                 String mensaje = resultSet.getString("mensaje");
                 Long fk_personaMensaje = resultSet.getLong("fk_personaMensaje");
                 Persona persona = new Persona();

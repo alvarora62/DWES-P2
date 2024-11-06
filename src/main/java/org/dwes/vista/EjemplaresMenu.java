@@ -5,12 +5,16 @@ import org.dwes.modelo.Ejemplar;
 import org.dwes.modelo.Mensaje;
 import org.dwes.modelo.Planta;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class EjemplaresMenu {
 
     boolean on = true;
+    boolean repetir;
     Scanner sc = new Scanner(System.in);
 
     private final Controlador controlador;
@@ -27,10 +31,10 @@ public class EjemplaresMenu {
     public void menuEjemplaresUser(){
         do {
             System.out.println("\t\t\t**Sistema Gestor del Viviero**  [Usuario Activo: " + MainMenu.username + "]");
-            System.out.println("\t\t\t1 - Resgistrar ejemplar (NO IMPLEMENTADO)");
-            System.out.println("\t\t\t2 - Listar ejemplares por Planta (NO IMPLEMENTADO)");
+            System.out.println("\t\t\t1 - Resgistrar ejemplar");
+            System.out.println("\t\t\t2 - Listar ejemplares por Planta");
             System.out.println("\t\t\t3 - Ver mensajes de seguimiento (NO IMPLEMENTADO)");
-            System.out.println("\t\t\t9 - Cerrar Sesion");
+            System.out.println("\t\t\t9 - Atrás");
 
             try{
                 int answer = sc.nextInt();
@@ -38,42 +42,20 @@ public class EjemplaresMenu {
                 switch (answer) {
                     case 1:
                         spacer();
-                        System.out.println("Registro de un nuevo ejemplar.\n");
-                        plantasMenu.listadoPlantas();
-
-                        boolean repetir = true;
-                        Planta planta;
-
-                        do {
-                            System.out.println("¿De qué tipo de planta es el ejemplar nuevo?");
-                            String fk_planta = sc.next().toUpperCase();
-                            planta = controlador.getServicioPlanta().findByCodigo(fk_planta);
-                            if (planta != null){
-                                repetir = false;
-                            }
-                        }while (repetir);
-
-                        Ejemplar ejemplar = new Ejemplar();
-                        ejemplar.setPlanta(planta);
-                        if (controlador.getServicioEjemplar().save(ejemplar)){
-                            Mensaje mensaje = new Mensaje();
-                            mensaje.setPersona(controlador.getServicioPersona().findById(MainMenu.activeUser));
-                            controlador.getServicioMensaje().mensajeInicial(mensaje);
-                        }
-
-                        System.out.println("Exito");
+                        saveEjemplar();
                         break;
                     case 2:
                         spacer();
-                        controlador.getServicioEjemplar().findByFkPlanta(1L);
+                        listByPlantFK();
                         break;
+
                     case 3:
                         spacer();
                         controlador.getServicioMensaje().findByEjemplar(1L);
                         break;
                     case 9:
                         spacer();
-                        System.out.println("Cerrando sesion...");
+                        System.out.println("Saliendo de la gestion de ejemplares...");
                         on = false;
                         break;
                     default:
@@ -87,6 +69,84 @@ public class EjemplaresMenu {
                 sc.next();
             }
         } while (on);
+    }
+
+    private void saveEjemplar() {
+        System.out.println("Registro de un nuevo ejemplar.\n");
+
+        if (!controlador.getServicioPlanta().listarPlantas().isEmpty()){
+            plantasMenu.listadoPlantas();
+
+            Planta planta;
+            do {
+                System.out.println("¿De qué tipo de planta es el ejemplar nuevo?");
+                String fk_planta = sc.next().toUpperCase().trim();
+                planta = controlador.getServicioPlanta().findByCodigo(fk_planta);
+                if (planta == null)
+                    System.err.println("Codigo de planta NO valido");
+            } while (planta == null);
+
+            Ejemplar ejemplar = new Ejemplar();
+            ejemplar.setPlanta(planta);
+
+            if (controlador.getServicioEjemplar().save(ejemplar)){
+                Mensaje mensaje = new Mensaje();
+                mensaje.setPersona(controlador.getServicioPersona().findById(9L));
+                mensaje.setEjemplar(ejemplar);
+                controlador.getServicioMensaje().mensajeInicial(mensaje);
+
+                System.out.println("Ejemplar añadido con exito");
+            } else {
+                System.err.println("Error creando el mensaje inicial.");
+            }
+        } else {
+            System.err.println("No hay plantas en el sistema");
+        }
+    }
+
+    private void listByPlantFK() {
+        System.out.println("Estas son las plantas guardadas actualmente en el sistema:");
+
+        if (!controlador.getServicioPlanta().listarPlantas().isEmpty()){
+            plantasMenu.listadoPlantas();
+
+            List<String> codigosPlantas = new ArrayList<>();
+            String salir = "salir";
+
+            String codigo;
+            do {
+                System.out.print("\nIngrese el código de la planta para buscar sus ejemplares (usa '" + salir + "' para finalizar la selección): ");
+                codigo = sc.next().trim().toUpperCase();
+                if (!codigo.equalsIgnoreCase(salir)){
+                    if (controlador.getServicioPlanta().findByCodigo(codigo) != null){
+                        codigosPlantas.add(codigo);
+                    } else {
+                        System.err.println("El codigo introducido no existe.");
+                    }
+                }
+            } while (!codigo.equalsIgnoreCase(salir));
+
+            System.out.println("\nEjemplares encontrados:");
+            System.out.println("----------------------------------------------------------------------");
+            for (String codigoPlanta : codigosPlantas){
+                List<Ejemplar> ejemplares = controlador.getServicioEjemplar().findByFkPlanta(codigoPlanta);
+
+                for (Ejemplar ejemplar : ejemplares){
+                    int numMensajes = controlador.getServicioMensaje().findByEjemplar(ejemplar.getId()).size();
+                    List<Mensaje> mensajes = controlador.getServicioMensaje().findByEjemplar(ejemplar.getId());
+
+                    LocalDateTime localDateTime = null;
+                    if (!mensajes.isEmpty()){
+                        localDateTime = mensajes.get(mensajes.size()-1).getFechaHora();
+                        System.out.println("Nombre del ejemplar" + ejemplar.getNombre() + " | Nº de mensajes: " + numMensajes + " | Fecha y Hora ultima actualizacion: " + localDateTime);
+                    } else {
+                        System.out.println("Nombre del ejemplar" + ejemplar.getNombre() + " | No hay mensajes todavia");
+                    }
+                }
+            }
+            System.out.println("----------------------------------------------------------------------");
+
+        }
     }
 
     private void spacer(){

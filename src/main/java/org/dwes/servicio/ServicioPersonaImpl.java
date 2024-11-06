@@ -1,5 +1,6 @@
 package org.dwes.servicio;
 
+import org.dwes.modelo.Credenciales;
 import org.dwes.modelo.Persona;
 import org.dwes.repositorio.PersonaDAOImpl;
 import org.dwes.util.Connexion;
@@ -10,9 +11,7 @@ import java.util.List;
 public class ServicioPersonaImpl implements ServicioPersona{
 
     private static ServicioPersonaImpl servicioPersona;
-    private PersonaDAOImpl personaDAO;
-    private final String namePattern = "[A-Za-z]";
-    private final String emailPattern = "^[\\w]+@[A-Za-z0-9-]+\\.(com|org|es)$";
+    private final PersonaDAOImpl personaDAO;
 
     private ServicioPersonaImpl() {
         Connection connexion = Connexion.getConnexion().getConexion();
@@ -43,22 +42,33 @@ public class ServicioPersonaImpl implements ServicioPersona{
 
     @Override
     public boolean save(Persona persona) {
-        if (!persona.getNombre().matches(namePattern)){
-            return false;
-        }
-        Persona emailCheck = personaDAO.findByEmail(persona.getEmail());
-        if (!persona.getEmail().matches(emailPattern) && !persona.getEmail().equals(emailCheck.getEmail())){
-            return false;
-        }
         return personaDAO.save(persona);
     }
 
     @Override
-    public void checkForAdmin() {
+    public Credenciales checkForAdmin() {
         if (personaDAO.findByEmail("admin@admin.com").getEmail() == null){
-            System.out.println("No existe un usuario admin en el sistema");
             Persona admin = new Persona(0L,"admin","admin@admin.com");
             personaDAO.save(admin);
+            Persona persona = findByEmail("admin@admin.com");
+            Credenciales credenciales = new Credenciales();
+            credenciales.setUsuario("admin");
+            credenciales.setPassword("admin");
+            credenciales.setFk_persona(persona);
+
+            return credenciales;
         }
+        return null;
+    }
+
+    public boolean checkName(String name){
+        String namePattern = "^[A-z]+$";
+        return !name.matches(namePattern);
+    }
+
+    public boolean checkEmail(String email){
+        Persona emailCheck = personaDAO.findByEmail(email);
+        String emailPattern = "^[\\w]+@[A-Za-z0-9-]+\\.(com|org|es)$";
+        return email.matches(emailPattern) && email.equals(emailCheck.getEmail());
     }
 }
