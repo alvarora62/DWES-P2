@@ -66,9 +66,27 @@ public class ServicioPersonaImpl implements ServicioPersona{
         return !name.matches(namePattern);
     }
 
+    /**
+     * Verifica si un correo electrónico es válido y no existe ya en el sistema.
+     * Este método realiza dos validaciones sobre el correo electrónico proporcionado:
+     *
+     *   - Primero, valida el formato del correo electrónico utilizando una expresión regular.
+     *   - Luego, comprueba en la base de datos si el correo ya está registrado.
+     *
+     * @param email el correo electrónico a verificar.
+     * @return true si el correo electrónico tiene un formato válido y no existe en el sistema;
+     *         false en caso de que el formato sea incorrecto o el correo ya exista en la base de datos.
+     */
     public boolean checkEmail(String email){
+        String emailPattern = "^[\\w.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+
+        // Validar mail
+        if (!email.matches(emailPattern)) {
+            return false;
+        }
+
+        // Comprobar existencia
         Persona emailCheck = personaDAO.findByEmail(email);
-        String emailPattern = "^[\\w]+@[A-Za-z0-9-]+\\.(com|org|es)$";
-        return email.matches(emailPattern) && email.equals(emailCheck.getEmail());
+        return emailCheck == null;
     }
 }
