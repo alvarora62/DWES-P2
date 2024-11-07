@@ -4,6 +4,7 @@ import org.dwes.controlador.Controlador;
 import org.dwes.modelo.Ejemplar;
 import org.dwes.modelo.Mensaje;
 import org.dwes.modelo.Persona;
+import org.dwes.util.Validacion;
 
 import java.time.LocalDateTime;
 import java.util.InputMismatchException;
@@ -32,9 +33,10 @@ public class MensajesMenu {
         do {
             System.out.println("\t\t\t**Sistema Gestor del Viviero** [Usuario activo: " + activeUser_username + "]");
             System.out.println("\t\t\t1 - Hacer anotacion a un ejemplar");
-            System.out.println("\t\t\t2 - Listar mensajes (NO IMPLEMENTADO)");
-            System.out.println("\t\t\t2 - Listar mensajes por persona (NO IMPLEMENTADO)");
-            System.out.println("\t\t\t2 - Listar mensajes por rango de fechas(NO IMPLEMENTADO)");
+            System.out.println("\t\t\t2 - Listar mensajes");
+            System.out.println("\t\t\t3 - Listar mensajes por persona");
+            System.out.println("\t\t\t4 - Listar mensajes por rango de fechas(NO IMPLEMENTADO)");
+            System.out.println("\t\t\t5 - Listar por tipo de ejemplar");
             System.out.println("\t\t\t9 - Cerrar Sesion");
 
             try{
@@ -52,6 +54,14 @@ public class MensajesMenu {
                     case 3:
                         spacer();
                         findAllByPersona();
+                        break;
+                    case 4:
+                        spacer();
+                        findBetweenDates();
+                        break;
+                    case 5:
+                        spacer();
+                        //
                         break;
                     case 9:
                         spacer();
@@ -127,9 +137,9 @@ public class MensajesMenu {
     }
 
     private void findAllByPersona() {
-        Long id;
-        Persona persona;
-
+        Long id = null;
+        Persona persona = null;
+        
         List<Persona> personas = controlador.getServicioPersona().findAll();
         if (!personas.isEmpty()){
             for (Persona persona1 : personas){
@@ -138,13 +148,16 @@ public class MensajesMenu {
 
             do {
                 System.out.println("¿De que persona te gustaria ver los mensajes?");
-                id = sc.nextLong();
-
-                persona = controlador.getServicioPersona().findById(id);
-                if (!Objects.equals(persona.getId(), id)){
-                    System.err.println("Esa persona no existe.");
+                try {
+                    id = sc.nextLong();
+                    persona = controlador.getServicioPersona().findById(id);
+                    if (!Objects.equals(persona.getId(), id)){
+                        System.err.println("Esa persona no existe.");
+                    }
+                } catch (IllegalArgumentException illegalArgumentException){
+                    System.err.println("No has introducido una id de usuario. Valor NO valido --> " + id);
                 }
-            } while (!Objects.equals(persona.getId(), id));
+            } while (!Objects.equals(Objects.requireNonNull(persona).getId(), id));
 
             List<Mensaje> mensajes = controlador.getServicioMensaje().findByPersona(id);
             if (!mensajes.isEmpty()){
@@ -158,6 +171,26 @@ public class MensajesMenu {
             System.err.println("No hay personas registradas en el sistema");
         }
     }
+
+    private void findBetweenDates() {
+        LocalDateTime localDateTime1;
+        LocalDateTime localDateTime2;
+        System.out.println("Introduce primero la fecha mas antigua y luego la mas nueva");
+        do {
+            localDateTime1 = Validacion.pedirFecha();
+            localDateTime2 = Validacion.pedirFecha();
+        } while (((localDateTime1 == null) || (localDateTime2 == null)) && Objects.requireNonNull(localDateTime2).isAfter(localDateTime1));
+
+        List<Mensaje> mensajes = controlador.getServicioMensaje().findBetweenDateTime(localDateTime1,localDateTime2);
+        if (!mensajes.isEmpty()){
+            for (Mensaje mensaje : mensajes){
+                System.out.println("Mensaje: " + mensaje.getMensaje() + " | Fecha y Hora: " + mensaje.getFechaHora());
+            }
+        } else {
+            System.err.println("No se han encontrado mensajes en esas fechas.");
+        }
+    }
+
 
     private void spacer(){
         for (int i = 0; i < 20; i++){
