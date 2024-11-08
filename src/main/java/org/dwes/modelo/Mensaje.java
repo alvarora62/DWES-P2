@@ -63,13 +63,7 @@ public class Mensaje {
 
     @Override
     public String toString() {
-        return "Mensaje{" +
-                "id=" + id +
-                ", fechaHora=" + fechaHora +
-                ", mensaje='" + mensaje + '\'' +
-                ", persona=" + persona +
-                ", ejemplar=" + ejemplar +
-                '}';
+        return "ID: " + id + " | Fecha y Hora: " + fechaHora + " | Persona: " + persona.getId() + " | Ejemplar: " + ejemplar.getId();
     }
 
 
