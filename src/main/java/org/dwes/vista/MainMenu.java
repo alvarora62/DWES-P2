@@ -114,6 +114,7 @@ public class MainMenu {
                     case 1:
                         spacer();
                         ejemplaresMenu.menuEjemplaresUser();
+                        on = true;
                         break;
                     case 9:
                         spacer();
@@ -152,18 +153,22 @@ public class MainMenu {
                     case 1:
                         spacer();
                         plantasMenu.menuPlantas();
+                        on = true;
                         break;
                     case 2:
                         spacer();
                         ejemplaresMenu.menuEjemplaresUser();
+                        on = true;
                         break;
                     case 3:
                         spacer();
                         personaMenu.menuPersona();
+                        on = true;
                         break;
                     case 4:
                         spacer();
                         mensajesMenu.menuEjemplaresUser();
+                        on = true;
                         break;
                     case 9:
                         spacer();

@@ -57,7 +57,7 @@ public class Validacion {
 
         // Mirar si la fecha actual es menor que la introducida
         LocalDateTime currentDate = LocalDateTime.now();
-        if (userDate.compareTo(currentDate) > 0) {
+        if (userDate.isAfter(currentDate)) {
             System.err.println("La fecha es futura. Fecha inválida.");
             return null;
         }

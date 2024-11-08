@@ -19,11 +19,13 @@ public class MensajesMenu {
 
     boolean on = true;
     Scanner sc = new Scanner(System.in);
+    PlantasMenu plantasMenu;
 
     private final Controlador controlador;
 
     public MensajesMenu() {
         this.controlador = Controlador.getControlador();
+        this.plantasMenu = new PlantasMenu();
     }
 
     /**
@@ -35,8 +37,8 @@ public class MensajesMenu {
             System.out.println("\t\t\t1 - Hacer anotacion a un ejemplar");
             System.out.println("\t\t\t2 - Listar mensajes");
             System.out.println("\t\t\t3 - Listar mensajes por persona");
-            System.out.println("\t\t\t4 - Listar mensajes por rango de fechas(NO IMPLEMENTADO)");
-            System.out.println("\t\t\t5 - Listar por tipo de ejemplar");
+            System.out.println("\t\t\t4 - Listar mensajes por rango de fechas");
+            System.out.println("\t\t\t5 - Listar por tipo de planta");
             System.out.println("\t\t\t9 - Cerrar Sesion");
 
             try{
@@ -61,7 +63,7 @@ public class MensajesMenu {
                         break;
                     case 5:
                         spacer();
-                        //
+                        findAllByPlanta();
                         break;
                     case 9:
                         spacer();
@@ -127,6 +129,7 @@ public class MensajesMenu {
     private void findAll() {
         List<Mensaje> mensajes = controlador.getServicioMensaje().findAll();
 
+        System.out.println("----------------------------------------------------------------------");
         if (!mensajes.isEmpty()){
             for (Mensaje mensaje : mensajes){
                 System.out.println(mensaje.toString());
@@ -134,6 +137,7 @@ public class MensajesMenu {
         } else {
             System.err.println("No hay ningun mensaje en el sistema");
         }
+        System.out.println("----------------------------------------------------------------------");
     }
 
     private void findAllByPersona() {
@@ -191,6 +195,19 @@ public class MensajesMenu {
         }
     }
 
+    private void findAllByPlanta() {
+        plantasMenu.listadoPlantas();
+
+        System.out.println("¿Sobre que planta te gustaria ver los mensajes?");
+        String codigo = sc.next();
+
+        List<Ejemplar> ejemplares = controlador.getServicioEjemplar().findByFkPlanta(codigo);
+        for (Ejemplar ejemplar : ejemplares){
+            System.out.println("\nMensajes del emjemplar con nombre: " + ejemplar.getNombre());
+            List<Mensaje> mensajes = controlador.getServicioMensaje().findByEjemplar(ejemplar.getId());
+            System.out.println(mensajes.toString());
+        }
+    }
 
     private void spacer(){
         for (int i = 0; i < 20; i++){
