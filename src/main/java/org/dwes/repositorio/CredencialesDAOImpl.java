@@ -51,6 +51,12 @@ public class CredencialesDAOImpl implements CredencialesDAO{
         return listaCredenciales;
     }
 
+    /**
+     * Busca una credencial en la base de datos usando el nombre de usuario especificado.
+     *
+     * @param user el nombre de usuario a buscar en la tabla de credenciales
+     * @return un objeto Credenciales si se encuentra una coincidencia, si no un null
+     */
     @Override
     public Credenciales findByUsuario(String user) {
         Credenciales credenciales = new Credenciales();
@@ -70,13 +76,15 @@ public class CredencialesDAOImpl implements CredencialesDAO{
                 credenciales.setUsuario(usuario);
                 credenciales.setPassword(password);
                 credenciales.setFk_persona(fk_persona);
+
+                return credenciales;
             }
 
         } catch (SQLException e) {
             System.err.println("Error buscando personas por usuario --> " + e.getMessage());
         }
 
-        return credenciales;
+        return null;
     }
 
     @Override
