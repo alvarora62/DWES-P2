@@ -3,13 +3,11 @@ package org.dwes.vista;
 import org.dwes.controlador.Controlador;
 import org.dwes.modelo.Ejemplar;
 import org.dwes.modelo.Mensaje;
+import org.dwes.modelo.Persona;
 import org.dwes.modelo.Planta;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 import static org.dwes.vista.MainMenu.activeUser_id;
 import static org.dwes.vista.MainMenu.activeUser_username;
@@ -53,7 +51,7 @@ public class EjemplaresMenu {
 
                     case 3:
                         spacer();
-                        controlador.getServicioMensaje().findByEjemplar(1L);
+                        listAllMensajeByEjemplarID();
                         break;
                     case 9:
                         spacer();
@@ -150,6 +148,42 @@ public class EjemplaresMenu {
 
         }
     }
+
+    public void listAllMensajeByEjemplarID() {
+        List<Ejemplar> ejemplares = controlador.getServicioEjemplar().findAll();
+
+        if (!ejemplares.isEmpty()) {
+            System.out.println("----------------------------------------------------------------------");
+            for (Ejemplar ejemplar : ejemplares) {
+                System.out.println(ejemplar.toString());
+            }
+            System.out.println("----------------------------------------------------------------------");
+
+            System.out.println("¿De qué ejemplar quieres ver los mensajes? (Introduce el ID del ejemplar)");
+            Long id = null;
+            do {
+                try {
+                    id = sc.nextLong();
+                } catch (InputMismatchException inputMismatchException) {
+                    System.err.println("El ID introducido no es un número.");
+                    sc.next();
+                }
+
+                if (id != null) {
+                    List<Mensaje> mensajes = controlador.getServicioMensaje().findByEjemplar(id);
+                    mensajes.sort(Comparator.comparing(Mensaje::getFechaHora));
+
+                    for (Mensaje mensaje : mensajes) {
+                        Persona persona = controlador.getServicioPersona().findById(mensaje.getPersona().getId());
+                        System.out.println("Fecha y Hora: " + mensaje.getFechaHora() + " | Mensaje: " + mensaje.getMensaje() + " | Creado por: " + persona.getNombre());
+                    }
+                }
+            } while (id == null || controlador.getServicioEjemplar().findById(id) == null);
+        } else {
+            System.err.println("No hay ejemplares registrados en el sistema.");
+        }
+    }
+
 
     private void spacer(){
         for (int i = 0; i < 20; i++){

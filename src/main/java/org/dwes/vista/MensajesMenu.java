@@ -31,7 +31,7 @@ public class MensajesMenu {
     /**
      * Menu presentado a un perfil de usuario
      */
-    public void menuEjemplaresUser(){
+    public void menuMensajesUser(){
         do {
             System.out.println("\t\t\t**Sistema Gestor del Viviero** [Usuario activo: " + activeUser_username + "]");
             System.out.println("\t\t\t1 - Hacer anotacion a un ejemplar");
