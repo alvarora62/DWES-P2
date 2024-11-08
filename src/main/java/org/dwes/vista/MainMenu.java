@@ -11,10 +11,11 @@ public class MainMenu {
     private final PlantasMenu plantasMenu;
     private final PersonaMenu personaMenu;
     private final EjemplaresMenu ejemplaresMenu;
+    private final MensajesMenu mensajesMenu;
     private final Controlador controlador;
 
-    static String username;
-    static Long activeUser;
+    static Long activeUser_id;
+    static String activeUser_username;
     boolean on = true;
     Scanner sc = new Scanner(System.in);
 
@@ -22,6 +23,7 @@ public class MainMenu {
         plantasMenu = new PlantasMenu();
         personaMenu = new PersonaMenu();
         ejemplaresMenu = new EjemplaresMenu();
+        mensajesMenu = new MensajesMenu();
         this.controlador = Controlador.getControlador();
     }
 
@@ -53,27 +55,27 @@ public class MainMenu {
                         int nivel;
 
                         System.out.println("\tNombre de usuario");
-                        username = sc.next();
+                        activeUser_username = sc.next();
                         System.out.println("\tContraseña:");
                         String password = sc.next();
 
-                        nivel = controlador.getServicioCredenciales().login(username, password);
+                        nivel = controlador.getServicioCredenciales().login(activeUser_username, password);
 
                         switch (nivel) {
                             case -1:
                                 System.out.println("Error en el usuario o la contraseña.");
                                 break;
                             case 0:
-                                menuPrincipalPersonal();
-                                Credenciales login = controlador.getServicioCredenciales().findByUsername(username);
-                                activeUser = login.getId();
+                                Credenciales login = controlador.getServicioCredenciales().findByUsername(activeUser_username);
+                                activeUser_id = controlador.getServicioPersona().findById(login.getFk_persona().getId()).getId();
                                 password = "";
                                 on = true;
+                                menuPrincipalPersonal();
                                 break;
                             case 1:
-                                menuPrincipalAdmin();
-                                activeUser = 0L;
+                                activeUser_id = controlador.getServicioPersona().findByEmail("admin@admin.com").getId();
                                 on = true;
+                                menuPrincipalAdmin();
                                 break;
                         }
 
@@ -101,7 +103,7 @@ public class MainMenu {
      */
     public void menuPrincipalPersonal(){
         do {
-            System.out.println("\t\t\t**Sistema Gestor del Viviero** [Usuario Actual: " + username + "]");
+            System.out.println("\t\t\t**Sistema Gestor del Viviero** [Usuario Actual: " + activeUser_username + "]");
             System.out.println("\t\t\t1 - Gestión ejemplares");
             System.out.println("\t\t\t9 - Cerrar Sesión");
 
@@ -112,6 +114,7 @@ public class MainMenu {
                     case 1:
                         spacer();
                         ejemplaresMenu.menuEjemplaresUser();
+                        on = true;
                         break;
                     case 9:
                         spacer();
@@ -136,10 +139,11 @@ public class MainMenu {
      */
     public void menuPrincipalAdmin(){
         do {
-            System.out.println("\t\t\t**Sistema Gestor del Viviero** [Usuario Actual " + username + "]");
+            System.out.println("\t\t\t**Sistema Gestor del Viviero** [Usuario Actual " + activeUser_username + "]");
             System.out.println("\t\t\t1 - Gestion de plantas");
             System.out.println("\t\t\t2 - Gestión ejemplares");
             System.out.println("\t\t\t3 - Gestion de empleados");
+            System.out.println("\t\t\t4 - Gestión de mensajes");
             System.out.println("\t\t\t9 - Cerrar Sesion");
 
             try{
@@ -149,14 +153,22 @@ public class MainMenu {
                     case 1:
                         spacer();
                         plantasMenu.menuPlantas();
+                        on = true;
                         break;
                     case 2:
                         spacer();
                         ejemplaresMenu.menuEjemplaresUser();
+                        on = true;
                         break;
                     case 3:
                         spacer();
                         personaMenu.menuPersona();
+                        on = true;
+                        break;
+                    case 4:
+                        spacer();
+                        mensajesMenu.menuEjemplaresUser();
+                        on = true;
                         break;
                     case 9:
                         spacer();

@@ -58,6 +58,43 @@ public class EjemplarDAOImpl implements EjemplarDAO{
     }
 
     /**
+     * Devuelve un ejemplar con una id especifica.
+     *
+     * @param id el ID del ejemplar a buscar
+     * @return un objeto Ejemplar si lo encuentra o un null si no
+     */
+    @Override
+    public Ejemplar findById(Long id) {
+        Ejemplar ejemplar = new Ejemplar();
+        String sql = "SELECT * FROM ejemplar WHERE id = ?";
+
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setLong(1, id);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Long id_ejemplar = resultSet.getLong("id");
+                String nombre = resultSet.getString("nombre");
+                String fkPlanta = resultSet.getString("fk_planta");
+
+                ejemplar.setId(id_ejemplar);
+                ejemplar.setNombre(nombre);
+                Planta planta = new Planta();
+                planta.setCodigo(fkPlanta);
+                ejemplar.setPlanta(planta);
+
+                return ejemplar;
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al buscar un ejemplar --> " + e.getMessage());
+        }
+
+        return null;
+    }
+
+    /**
      * Devuelve una lista de ejemplares de una planta específica.
      *
      * @param codigo el ID de la planta a filtrar

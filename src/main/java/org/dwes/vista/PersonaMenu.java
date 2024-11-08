@@ -7,6 +7,8 @@ import org.dwes.modelo.Persona;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import static org.dwes.vista.MainMenu.activeUser_username;
+
 public class PersonaMenu {
 
     boolean on = true;
@@ -20,7 +22,7 @@ public class PersonaMenu {
 
     public void menuPersona(){
         do {
-            System.out.println("\t\t\t**Sistema Gestor del Viviero** (Gestión de Personal) [Usuario activo: " + MainMenu.username + "]");
+            System.out.println("\t\t\t**Sistema Gestor del Viviero** (Gestión de Personal) [Usuario activo: " + activeUser_username + "]");
             System.out.println("\t\t\t1 - Alta de un empleado");
             System.out.println("\t\t\t9 - Atrás");
 
@@ -67,14 +69,18 @@ public class PersonaMenu {
                 System.err.println("Error en el formato del nombre");
         }while (controlador.getServicioPersona().checkName(name));
 
-        // Validacion email
         String email;
+        boolean isValidEmail;
         do {
-            System.out.println("\nIntroduce el email del nuevo empleado: \n Se tendra en cuenta el siguiente patron que ha seguir x@x.(com/es/org). Además, el email no puede existir ya en el sistema.\n");
+            System.out.println("\nIntroduce el email del nuevo empleado: \nSe tendrá en cuenta el siguiente patrón: x@x.(com/es/org). Además, el email no puede existir ya en el sistema.\n");
+
             email = sc.next();
-            if (controlador.getServicioPersona().checkEmail(email))
+            isValidEmail = controlador.getServicioPersona().checkEmail(email);
+
+            if (!isValidEmail) {
                 System.err.println("Error en el formato del email o email ya existente en el sistema.");
-        } while (controlador.getServicioPersona().checkEmail(email));
+            }
+        } while (!isValidEmail);
 
         // Guardado de la persona
         persona.setNombre(name);
@@ -93,33 +99,30 @@ public class PersonaMenu {
 
         System.out.println("\n\nCreacion de datos de acceso para el usuario nuevo.");
 
-        // Check for unique username
+        // Validacion username
         do {
             System.out.println("Ingrese un nombre de usuario único:");
             username = sc.next();
 
-            // Use controlador's chechUsername method to check for availability
             if (!controlador.getServicioCredenciales().chechUsername(username)) {
                 System.err.println("El nombre de usuario ya está en uso. Intente con otro.");
             }
         } while (!controlador.getServicioCredenciales().chechUsername(username));
 
-        // Check for valid password format
+        // Validacion passwd
         do {
             System.out.println("Ingrese una contraseña para el empleado (mínimo 8 caracteres, al menos una mayúscula, un símbolo y un número):");
             passwd = sc.next();
 
-            // Validate the password against the defined pattern in ServicioCredenciales
             if (!controlador.getServicioCredenciales().checkPassword(passwd)) {
                 System.err.println("Contraseña no válida. Intente nuevamente.");
             }
         } while (!controlador.getServicioCredenciales().checkPassword(passwd));
 
-        // Set credentials attributes and link to the Persona object
         credenciales.setUsuario(username);
         credenciales.setPassword(passwd);
 
-        // Retrieve the Persona instance by email for foreign key linking
+        // Creacion del objeto Persona a relacionar con Credenciales
         Persona personaData = controlador.getServicioPersona().findByEmail(persona.getEmail());
         if (personaData != null) {
             credenciales.setFk_persona(personaData);

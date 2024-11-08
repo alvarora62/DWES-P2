@@ -41,10 +41,8 @@ public class Ejemplar {
 
     @Override
     public String toString() {
-        return "Ejemplar{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", planta=" + planta +
-                '}';
+        return "ID: " + id + " | Nombre: " + nombre + " | Planta: " + planta.getCodigo();
     }
+
+
 }

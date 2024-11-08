@@ -103,13 +103,15 @@ public class PersonaDAOImpl implements PersonaDAO{
                 persona.setId(identificador);
                 persona.setNombre(nombre);
                 persona.setEmail(email);
+
+                return persona;
             }
 
         } catch (SQLException e) {
             System.err.println("Error buscando personas por email --> " + e.getMessage());
         }
 
-        return persona;
+        return null;
     }
 
     /**

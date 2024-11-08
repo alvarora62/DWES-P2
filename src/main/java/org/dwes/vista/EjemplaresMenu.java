@@ -11,10 +11,12 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
+import static org.dwes.vista.MainMenu.activeUser_id;
+import static org.dwes.vista.MainMenu.activeUser_username;
+
 public class EjemplaresMenu {
 
     boolean on = true;
-    boolean repetir;
     Scanner sc = new Scanner(System.in);
 
     private final Controlador controlador;
@@ -30,7 +32,7 @@ public class EjemplaresMenu {
      */
     public void menuEjemplaresUser(){
         do {
-            System.out.println("\t\t\t**Sistema Gestor del Viviero**  [Usuario Activo: " + MainMenu.username + "]");
+            System.out.println("\t\t\t**Sistema Gestor del Viviero**  [Usuario Activo: " + activeUser_username + "]");
             System.out.println("\t\t\t1 - Resgistrar ejemplar");
             System.out.println("\t\t\t2 - Listar ejemplares por Planta");
             System.out.println("\t\t\t3 - Ver mensajes de seguimiento (NO IMPLEMENTADO)");
@@ -91,7 +93,7 @@ public class EjemplaresMenu {
 
             if (controlador.getServicioEjemplar().save(ejemplar)){
                 Mensaje mensaje = new Mensaje();
-                mensaje.setPersona(controlador.getServicioPersona().findById(9L));
+                mensaje.setPersona(controlador.getServicioPersona().findById(activeUser_id));
                 mensaje.setEjemplar(ejemplar);
                 controlador.getServicioMensaje().mensajeInicial(mensaje);
 
