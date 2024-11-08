@@ -69,13 +69,13 @@ public class MainMenu {
                                 Credenciales login = controlador.getServicioCredenciales().findByUsername(activeUser_username);
                                 activeUser_id = controlador.getServicioPersona().findById(login.getFk_persona().getId()).getId();
                                 password = "";
-                                on = true;
                                 menuPrincipalPersonal();
+                                on = true;
                                 break;
                             case 1:
                                 activeUser_id = controlador.getServicioPersona().findByEmail("admin@admin.com").getId();
-                                on = true;
                                 menuPrincipalAdmin();
+                                on = true;
                                 break;
                         }
 
@@ -105,6 +105,7 @@ public class MainMenu {
         do {
             System.out.println("\t\t\t**Sistema Gestor del Viviero** [Usuario Actual: " + activeUser_username + "]");
             System.out.println("\t\t\t1 - Gestión ejemplares");
+            System.out.println("\t\t\t2 - Gestión de mensajes");
             System.out.println("\t\t\t9 - Cerrar Sesión");
 
             try{
@@ -116,6 +117,10 @@ public class MainMenu {
                         ejemplaresMenu.menuEjemplaresUser();
                         on = true;
                         break;
+                    case 2:
+                        spacer();
+                        mensajesMenu.menuMensajesUser();
+                        on = true;
                     case 9:
                         spacer();
                         System.out.println("Cerrando sesion...");
@@ -167,7 +172,7 @@ public class MainMenu {
                         break;
                     case 4:
                         spacer();
-                        mensajesMenu.menuEjemplaresUser();
+                        mensajesMenu.menuMensajesUser();
                         on = true;
                         break;
                     case 9:
