@@ -30,7 +30,7 @@ public class EjemplaresMenu {
      */
     public void menuEjemplaresUser(){
         do {
-            System.out.println("\t\t\t**Sistema Gestor del Viviero**  [Usuario Activo: " + activeUser_username + "]");
+            System.out.println("\t\t\t**Sistema Gestor del Viviero** (Gestion de Ejemplares)  [Usuario Activo: " + activeUser_username + "]");
             System.out.println("\t\t\t1 - Resgistrar ejemplar");
             System.out.println("\t\t\t2 - Listar ejemplares por Planta");
             System.out.println("\t\t\t3 - Ver mensajes de seguimiento");
