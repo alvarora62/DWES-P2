@@ -75,42 +75,47 @@ public class PlantasMenu {
                         String codigo;
                         listadoPlantas();
 
-                        do {
-                            System.out.println("¿Qué planta quieres actualizar?");
-                            System.out.println("CODIGO:");
-                            codigo = sc.next();
+                        List<Planta> plantaList = controlador.getServicioPlanta().listarPlantas();
+                        if (!plantaList.isEmpty()){
+                            do {
+                                System.out.println("¿Qué planta quieres actualizar?");
+                                System.out.println("CODIGO:");
+                                codigo = sc.next();
 
-                            Planta findByCodigo = controlador.getServicioPlanta().findByCodigo(codigo);
-                            if (findByCodigo != null){
-                                estado = true;
-                                System.out.println("Planta valida para la actualizacion de datos.");
-                            } else {
-                                System.out.println("Planta no encontrada, intenta otro codigo.");
-                            }
-                        }while (!estado);
-                        estado = false;
+                                Planta findByCodigo = controlador.getServicioPlanta().findByCodigo(codigo);
+                                if (findByCodigo != null){
+                                    estado = true;
+                                    System.out.println("Planta valida para la actualizacion de datos.");
+                                } else {
+                                    System.out.println("Planta no encontrada, intenta otro codigo.");
+                                }
+                            }while (!estado);
+                            estado = false;
 
-                        do {
-                            System.out.println("\tNuevo nombre comun para la planta:");
-                            String nombreComun = sc.next();
-                            System.out.println("\tNuevo nombre cientifico para la planta");
-                            String nombreCientifico = sc.next();
+                            do {
+                                System.out.println("\tNuevo nombre comun para la planta:");
+                                String nombreComun = sc.next();
+                                System.out.println("\tNuevo nombre cientifico para la planta");
+                                String nombreCientifico = sc.next();
 
-                            Planta planta = new Planta();
-                            planta.setCodigo(codigo);
-                            planta.setNombreComun(nombreComun);
-                            planta.setNombreCientifico(nombreCientifico);
+                                Planta planta = new Planta();
+                                planta.setCodigo(codigo);
+                                planta.setNombreComun(nombreComun);
+                                planta.setNombreCientifico(nombreCientifico);
 
-                            if (controlador.getServicioPlanta().update(planta)){
-                                spacer();
-                                System.out.println("Planta actualizada correctamente");
-                                estado = true;
-                            } else {
-                                System.err.println("Error de formato en la planta introducida.");
-                            }
+                                if (controlador.getServicioPlanta().update(planta)){
+                                    spacer();
+                                    System.out.println("Planta actualizada correctamente");
+                                    estado = true;
+                                } else {
+                                    System.err.println("Error de formato en la planta introducida.");
+                                }
 
-                        }while (!estado);
-                        estado = false;
+                            }while (!estado);
+                            estado = false;
+                        } else {
+                            System.err.println("No hay plantas registradas en el sistema.");
+                        }
                         break;
                     case 4:
                         spacer();
@@ -118,6 +123,7 @@ public class PlantasMenu {
                         break;
                     case 9:
                         spacer();
+                        System.out.println("Saliendo de la gestion de plantas.");
                         on = false;
                         break;
                     default:

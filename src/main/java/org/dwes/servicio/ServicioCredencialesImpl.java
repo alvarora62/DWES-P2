@@ -38,8 +38,19 @@ public class ServicioCredencialesImpl implements ServicioCredenciales{
     }
 
     public boolean checkPassword(String password){
-        String passwdPattern = "^\\S\\D+[0-9]+[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?~]+$";
-        return (password.matches(passwdPattern) && password.length() == 8);
+        if (password.length() < 8)
+            return false;
+
+        if (!password.matches(".*[A-Z].*"))
+            return false;
+
+        if (!password.matches(".*[0-9].*"))
+            return false;
+
+        if (!password.matches(".*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?~].*"))
+            return false;
+
+        return true;
     }
 
     /**

@@ -63,22 +63,21 @@ public class MainMenu {
 
                         switch (nivel) {
                             case -1:
-                                System.out.println("Error en el usuario o la contraseña.");
+                                System.err.println("Error en el usuario o la contraseña.");
                                 break;
                             case 0:
                                 Credenciales login = controlador.getServicioCredenciales().findByUsername(activeUser_username);
                                 activeUser_id = controlador.getServicioPersona().findById(login.getFk_persona().getId()).getId();
                                 password = "";
                                 menuPrincipalPersonal();
-                                on = true;
                                 break;
                             case 1:
                                 activeUser_id = controlador.getServicioPersona().findByEmail("admin@admin.com").getId();
                                 menuPrincipalAdmin();
-                                on = true;
                                 break;
                         }
 
+                        on = true;
                         break;
                     case 9:
                         spacer();

@@ -33,7 +33,7 @@ public class MensajesMenu {
      */
     public void menuMensajesUser(){
         do {
-            System.out.println("\t\t\t**Sistema Gestor del Viviero** [Usuario activo: " + activeUser_username + "]");
+            System.out.println("\t\t\t**Sistema Gestor del Viviero** (Gestión de Mensajes) [Usuario activo: " + activeUser_username + "]");
             System.out.println("\t\t\t1 - Hacer anotacion a un ejemplar");
             System.out.println("\t\t\t2 - Listar mensajes");
             System.out.println("\t\t\t3 - Listar mensajes por persona");
@@ -67,7 +67,7 @@ public class MensajesMenu {
                         break;
                     case 9:
                         spacer();
-                        System.out.println("Cerrando sesion...");
+                        System.out.println("Saliendo de la gestion de mensajes...");
                         on = false;
                         break;
                     default:

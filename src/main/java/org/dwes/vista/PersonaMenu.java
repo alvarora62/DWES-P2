@@ -40,6 +40,7 @@ public class PersonaMenu {
                         break;
                     case 9:
                         spacer();
+                        System.out.println("Saliendo de la gestión de empleados...");
                         on = false;
                         break;
                     default:

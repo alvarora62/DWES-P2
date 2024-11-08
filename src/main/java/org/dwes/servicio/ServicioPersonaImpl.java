@@ -47,7 +47,7 @@ public class ServicioPersonaImpl implements ServicioPersona{
 
     @Override
     public Credenciales checkForAdmin() {
-        if (personaDAO.findByEmail("admin@admin.com").getEmail() == null){
+        if (personaDAO.findByEmail("admin@admin.com") == null){
             Persona admin = new Persona(0L,"admin","admin@admin.com");
             personaDAO.save(admin);
             Persona persona = findByEmail("admin@admin.com");
