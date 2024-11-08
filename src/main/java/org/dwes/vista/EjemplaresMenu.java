@@ -53,7 +53,7 @@ public class EjemplaresMenu {
 
                     case 3:
                         spacer();
-                        controlador.getServicioMensaje().findByEjemplar(1L);
+                        listAllMensajeByEjemplarID();
                         break;
                     case 9:
                         spacer();
@@ -149,6 +149,35 @@ public class EjemplaresMenu {
             System.out.println("----------------------------------------------------------------------");
 
         }
+    }
+
+    private void listAllMensajeByEjemplarID() {
+        List<Ejemplar> ejemplares = controlador.getServicioEjemplar().findAll();
+
+        if (!ejemplares.isEmpty()){
+            System.out.println("----------------------------------------------------------------------");
+            for (Ejemplar ejemplar : ejemplares){
+                System.out.println(ejemplar.toString());
+            }
+            System.out.println("----------------------------------------------------------------------");
+
+            System.out.println("¿De que ejemplar quieres ver los mensajes? (Introduce el ID del ejemplar)");
+            Long id = null;
+            do {
+                try{
+                    id = sc.nextLong();
+                } catch (InputMismatchException inputMismatchException){
+                    System.err.println("El Id introducido no es un numero.");
+                }
+                List<Mensaje> mensajes = controlador.getServicioMensaje().findByEjemplar(id);
+                for (Mensaje mensaje : mensajes){
+                    System.out.println(mensaje.toString());
+                }
+            } while (controlador.getServicioEjemplar().findById(id) == null && id == null);
+        } else {
+            System.err.println("No hay ejemplares registrados en el sistema.");
+        }
+
     }
 
     private void spacer(){
