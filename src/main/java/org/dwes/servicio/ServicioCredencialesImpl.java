@@ -34,8 +34,7 @@ public class ServicioCredencialesImpl implements ServicioCredenciales{
     }
 
     public boolean chechUsername(String username){
-        Credenciales checkUsername = credencialesDAO.findByUsuario(username);
-        return checkUsername == null || checkUsername.getId() == null;
+        return credencialesDAO.findByUsuario(username) == null;
     }
 
     public boolean checkPassword(String password){
@@ -55,6 +54,10 @@ public class ServicioCredencialesImpl implements ServicioCredenciales{
         Credenciales credenciales = credencialesDAO.findByUsuario(username);
         if (username.equals("admin") && password.equals("admin")){
             return 1;
+        }
+
+        if (credenciales == null){
+            return -1;
         }
 
         if (username.equals(credenciales.getUsuario()) && password.equals(credenciales.getPassword())){
